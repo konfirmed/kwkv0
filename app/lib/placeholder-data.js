@@ -47,10 +47,10 @@ const customers = [
     image_url: '/customers/michael-novotny.png',
   },
   {
-    id: 'd6e15727-9fe1-4961-8c5b-ea44a9bd81aa',
-    name: 'Evil Rabbit',
-    email: 'evil@rabbit.com',
-    image_url: '/customers/evil-rabbit.png',
+    id: 'cljzbrld70000reechjui5324',
+    name: 'Kanmi Obasa',
+    email: 'null',
+    image_url: '/customers/steven-tey.png',
   },
   {
     id: '126eed9c-c90c-4ef6-a4a8-fcf7408d3c66',
