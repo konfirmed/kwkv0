@@ -2,6 +2,7 @@
 import URLInput from '@/app/ui/dashboard/input';
 import React, { useState, useEffect } from 'react';
 import { lusitana } from '@/app/ui/fonts';
+import Search from '@/app/ui/search';
 
 // Interfaces
 interface CruxApiRequest {
@@ -96,25 +97,21 @@ const DashboardMetricsPage = () => {
       <>
       <main>
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        Dashboard
+        Performance Metrics
       </h1>
-      
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 pb-2">
-        <URLInput
+      <URLInput
           value={userUrl}
           onSubmit={handleUrlChange}
           onFormFactorChange={handleFormFactorChange}
           formFactor={formFactor}
         />
-        <br />
-        <h2>CrUX Metrics</h2>
-        <br />
-        <MCard metric='lcp' p75={lcp} />
-        <MCard metric='fid' p75={fid} />
-        <MCard metric='cls' p75={cls} />
-        <MCard metric='fcp' p75={fcp} />
-        <MCard metric='ttfb' p75={ttfb} />
-        <MCard metric='inp' p75={inp} />
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 pb-2">
+        <MCard metric='Largest Contentful Paint' p75={lcp} />
+        <MCard metric='First Input Delay' p75={fid} />
+        <MCard metric='Cumulative Layout Shift' p75={cls} />
+        <MCard metric='First Contentful Paint' p75={fcp} />
+        <MCard metric='Time To First Byte' p75={ttfb} />
+        <MCard metric='Interaction To Next Paint' p75={inp} />
         <br />
         <br />
         <br />
@@ -139,7 +136,7 @@ const DashboardMetricsPage = () => {
   }) {
   
     return (
-      <div className="rounded-xl bg-gray-50 p-2 shadow-sm">
+      <div className="mt-5 rounded-xl bg-gray-50 p-2 shadow-sm">
         <div className="flex p-4">
           <h3 className="ml-2 text-sm font-medium">{metric}</h3>
         </div>
