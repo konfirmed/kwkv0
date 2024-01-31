@@ -1,6 +1,8 @@
 "use client";
 import URLInput from '@/app/ui/dashboard/input';
 import React, { useState, useEffect } from 'react';
+import { Card } from '@/app/ui/dashboard/cards';
+import { lusitana } from '@/app/ui/fonts';
 
 // Interfaces
 interface CruxApiRequest {
@@ -43,7 +45,9 @@ async function queryCruxApi(apiKey: string, requestData: CruxApiRequest): Promis
   return response.json();
 }
 
-const DashboardMetricsPage = () => {
+ 
+export default async function Page() {
+ 
     const [data, setData] = useState<CruxApiResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [userUrl, setUserUrl] = useState<string>('');
@@ -85,24 +89,45 @@ const DashboardMetricsPage = () => {
         setFormFactor(formFactor);
       };
   
-    // const handleUrlSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    //   event.preventDefault();
-    //   setData(null); // Reset data when a new URL is submitted
-    //   setError(null); // Reset error as well
-    // };
-  
     return (
       <>
-        <h1>Dashboard Metrics</h1>
-        <URLInput
+      <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
+        Metrics
+      </h1>
+      <URLInput
           value={userUrl}
           onSubmit={handleUrlChange}
           onFormFactorChange={handleFormFactorChange}
           formFactor={formFactor}
         />
         <br />
-        <h2>CrUX Metrics</h2>
         <br />
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 pb-2">
+        <Card title="LCP" value={`${lcp}`} type="collected" />
+        <Card title="Synthetic Metrics" value={''} type="pending" />
+        <Card title="Layout Shift Debugger" value={''} type="invoices" />
+        <Card
+          title="Long Tasks Debugger"
+          value={""}
+          type="customers"
+        />
+      </div>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 pb-2">
+        <Card title="Speculation Rules" value={''} type="collected" />
+        <Card title="Largest Contentful Paint" value={''} type="pending" />
+      </div>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 pt-3">
+        <Card title="Actual Head" value={''} type="collected" />
+        <Card title="Sorted Head" value={''} type="pending" />
+      </div>
+      <div className="grid gap-6 pt-3">
+        <Card title="SEO Analyzer" value={''} type="invoices" />
+        <Card
+          title="Waterfall"
+          value={""}
+          type="customers"
+        />
+      </div>
         <p>LCP: {lcp}</p>
         <p>LCP p75 density: {lcpp75density}</p>
         <p>FID: {fid}</p>
@@ -123,6 +148,4 @@ const DashboardMetricsPage = () => {
         
       </>
     );
-  };
-  
-  export default DashboardMetricsPage;
+  }
