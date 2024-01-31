@@ -1,6 +1,7 @@
 "use client";
 import URLInput from '@/app/ui/dashboard/input';
 import React, { useState, useEffect } from 'react';
+import { lusitana } from '@/app/ui/fonts';
 
 // Interfaces
 interface CruxApiRequest {
@@ -93,7 +94,12 @@ const DashboardMetricsPage = () => {
   
     return (
       <>
-        <h1>Dashboard Metrics</h1>
+      <main>
+      <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
+        Dashboard
+      </h1>
+      
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 pb-2">
         <URLInput
           value={userUrl}
           onSubmit={handleUrlChange}
@@ -103,26 +109,46 @@ const DashboardMetricsPage = () => {
         <br />
         <h2>CrUX Metrics</h2>
         <br />
-        <p>LCP: {lcp}</p>
-        <p>LCP p75 density: {lcpp75density}</p>
-        <p>FID: {fid}</p>
-        <p>FID p75 density: {fidp75density}</p>
-        <p>CLS: {cls}</p>
-        <p>CLS p75 density: {clsp75density}</p>
-        <p>FCP: {fcp}</p>
-        <p>FCP p75 density: {fcpp75density}</p>
-        <p>TTFB: {ttfb}</p>
-        <p>TTFB p75 density: {ttfbp75density}</p>
-        <p>INP: {inp}</p>
-        <p>INP p75 density: {inpp75density}</p>
+        <MCard metric='lcp' p75={lcp} />
+        <MCard metric='fid' p75={fid} />
+        <MCard metric='cls' p75={cls} />
+        <MCard metric='fcp' p75={fcp} />
+        <MCard metric='ttfb' p75={ttfb} />
+        <MCard metric='inp' p75={inp} />
+        <br />
+        <br />
         <br />
         <p>
             Fix this soon
         </p>
         {error && <p>Error: {error}</p>}
+        </div>
+      </main>
         
       </>
     );
   };
   
   export default DashboardMetricsPage;
+  export function MCard({
+    metric,
+    p75,
+  }: {
+    metric: string;
+    p75: number | string;
+  }) {
+  
+    return (
+      <div className="rounded-xl bg-gray-50 p-2 shadow-sm">
+        <div className="flex p-4">
+          <h3 className="ml-2 text-sm font-medium">{metric}</h3>
+        </div>
+        <p
+          className={`${lusitana.className}
+            truncate rounded-xl bg-white px-4 py-8 text-center text-2xl`}
+        >
+          {p75}
+        </p>
+      </div>
+    );
+  }
