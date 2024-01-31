@@ -106,12 +106,12 @@ const DashboardMetricsPage = () => {
           formFactor={formFactor}
         />
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 pb-2">
-        <MCard metric='Largest Contentful Paint' p75={lcp} />
-        <MCard metric='First Input Delay' p75={fid} />
-        <MCard metric='Cumulative Layout Shift' p75={cls} />
-        <MCard metric='First Contentful Paint' p75={fcp} />
-        <MCard metric='Time To First Byte' p75={ttfb} />
-        <MCard metric='Interaction To Next Paint' p75={inp} />
+        <MCard metric='Largest Contentful Paint (CrUX)' p75={lcp} />
+        <MCard metric='First Input Delay (CrUX)' p75={fid} />
+        <MCard metric='Cumulative Layout Shift (CrUX)' p75={cls} />
+        <MCard metric='First Contentful Paint (CrUX)' p75={fcp} />
+        <MCard metric='Time To First Byte (CrUX)' p75={ttfb} />
+        <MCard metric='Interaction To Next Paint (CrUX)' p75={inp} />
         <br />
         <br />
         <br />
