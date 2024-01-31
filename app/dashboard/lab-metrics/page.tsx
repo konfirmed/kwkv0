@@ -6,6 +6,10 @@ import { lusitana } from '@/app/ui/fonts';
 // Interfaces
 interface PageSpeedInsightsResponse {
   lighthouseResult: {
+    fullPageScreenshot: string [] 
+    audits: {
+      metrics: string [] | number
+    }
     categories: {
       performance: {
         score: number;
@@ -72,11 +76,17 @@ interface FetchPageSpeedInsightsParams {
         </form>
         {error && <p>Error: {error}</p>}
         {data && (
-          <div>
-            <h3>Results:</h3>
-            <p> Data: {JSON.stringify(data)}</p>
-            <p>{data.lighthouseResult.categories.performance[0]}</p>
-            <p>Performance Score: {data.lighthouseResult.categories.performance.score * 100}</p>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 pb-2">
+            {/* <h3>Results:</h3> */}
+            <SCard metric='Performance Score' value={data.lighthouseResult.categories.performance.score * 100}/>
+            <SCard metric='Largest Contentful Paint' value={data.lighthouseResult.audits.metrics.details.items[0].largestContentfulPaint}/>
+            <SCard metric='Cumulative Layout Shift' value={data.lighthouseResult.audits.metrics.details.items[0].cumulativeLayoutShift}/>
+            <SCard metric='First Contentful Paint' value={data.lighthouseResult.audits.metrics.details.items[0].firstContentfulPaint}/>
+            <SCard metric='Speed Index' value={data.lighthouseResult.audits.metrics.details.items[0].speedIndex}/>
+            <SCard metric='Total Blocking Time' value= {data.lighthouseResult.audits.metrics.details.items[0].totalBlockingTime}/>
+            <SCard metric='Time to First Byte' value={data.lighthouseResult.audits.metrics.details.items[0].timeToFirstByte}/>
+            <p>Screenshot: <img src={`${data.lighthouseResult.fullPageScreenshot.screenshot.data}`}/></p>
+
           </div>
         )}
       </div>
@@ -85,12 +95,12 @@ interface FetchPageSpeedInsightsParams {
   
   export default PageSpeedInsightsComponent;
 
-  export function MCard({
+  export function SCard({
     metric,
-    p75,
+    value,
   }: {
     metric: string;
-    p75: number | string;
+    value: number | string;
   }) {
   
     return (
@@ -102,7 +112,7 @@ interface FetchPageSpeedInsightsParams {
           className={`${lusitana.className}
             truncate rounded-xl bg-white px-4 py-8 text-center text-2xl`}
         >
-          {p75}
+          {value}
         </p>
       </div>
     );
