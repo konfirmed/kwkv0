@@ -5,9 +5,8 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 interface URLInputProps {
   value: string;
   onSubmit: (value: string) => void;
-  onFormFactorChange: (formFactor: 'DESKTOP' | 'PHONE' | 'TABLET') => void;
-  formFactor: 'desktop' | 'PHONE' | 'TABLET';
-  stratey: 'mobile' | 'desktop';
+  onFormFactorChange: (formFactor: 'mobile' | 'desktop') => void;
+  formFactor: 'mobile' | 'desktop';
   placeholder?: string;
 }
 
@@ -23,7 +22,7 @@ const URLInput: React.FC<URLInputProps> = ({
   };
 
   const handleFormFactorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    onFormFactorChange(event.target.value as 'DESKTOP' | 'PHONE' | 'TABLET');
+    onFormFactorChange(event.target.value as 'mobile' | 'desktop');
   };
 
   return (
@@ -40,9 +39,8 @@ const URLInput: React.FC<URLInputProps> = ({
       />
       <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
       <select className='rounded-md border' value={formFactor} onChange={handleFormFactorChange}>
-        <option value="DESKTOP">Desktop</option>
-        <option value="PHONE">Phone</option>
-        <option value="TABLET">Tablet</option>
+        <option value="mobile">Phone</option>
+        <option value="desktop">Desktop</option>
       </select>
       <button onClick={() => onSubmit(value)}>Load Metrics</button>
     </div>

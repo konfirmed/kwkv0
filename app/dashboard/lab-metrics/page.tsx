@@ -53,14 +53,29 @@ interface FetchPageSpeedInsightsParams {
         if (error instanceof Error) setError(error.message);
       }
     };
-  
+    console.log('data', data);
     return (
       <div>
-       <URLInput value={url} onSubmit={setUrl} onFormFactorChange={setStrategy} formFactor={strategy} />
+        <form onSubmit={handleSubmit}>
+          <label>
+            URL:
+            <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} />
+          </label>
+          <label>
+            Strategy:
+            <select value={strategy} onChange={(e) => setStrategy(e.target.value as 'mobile' | 'desktop')}>
+              <option value="mobile">Mobile</option>
+              <option value="desktop">Desktop</option>
+            </select>
+          </label>
+          <button type="submit">Get Insights</button>
+        </form>
         {error && <p>Error: {error}</p>}
         {data && (
           <div>
             <h3>Results:</h3>
+            <p> Data: {JSON.stringify(data)}</p>
+            <p>{data.lighthouseResult.categories.performance[0]}</p>
             <p>Performance Score: {data.lighthouseResult.categories.performance.score * 100}</p>
           </div>
         )}
