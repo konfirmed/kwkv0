@@ -237,3 +237,17 @@ export async function getUser(email: string) {
     throw new Error('Failed to fetch user.');
   }
 }
+
+const API_KEY = 'AIzaSyAq65RK7KmmxehbTiDH5lxhtnT9dEh23os'; // Add Security
+
+async function fetchCrUXMetrics(url: string) {
+    const apiUrl = `https://chromeuxreport.googleapis.com/v1/records:queryRecord?key=${API_KEY}&origin=${encodeURIComponent(url)}`;
+  
+    try {
+      const response = await fetch(apiUrl);
+      return response;
+    } catch (error) {
+      console.error('Error fetching CrUX report:', error);
+      throw error;
+    }
+  };
