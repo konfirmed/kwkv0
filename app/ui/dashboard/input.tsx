@@ -1,4 +1,3 @@
-// Favour combine or merge search with input
 import React from 'react';
 
 interface URLInputProps {
