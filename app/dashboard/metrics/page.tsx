@@ -2,7 +2,6 @@
 import URLInput from '@/app/ui/dashboard/input';
 import React, { useState, useEffect } from 'react';
 import { lusitana } from '@/app/ui/fonts';
-import Search from '@/app/ui/search';
 
 // Interfaces
 interface CruxApiRequest {
@@ -97,7 +96,7 @@ const DashboardMetricsPage = () => {
       <>
       <main>
       <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        Performance Metrics
+        RUM Metrics
       </h1>
       <URLInput
           value={userUrl}
