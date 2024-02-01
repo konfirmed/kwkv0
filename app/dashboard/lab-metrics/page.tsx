@@ -1,6 +1,7 @@
 "use client";
-import URLInput from '@/app/ui/dashboard/input';
+// Implement URLInput
 import React, { useState, useEffect } from 'react';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
 
 // Interfaces
@@ -58,37 +59,45 @@ interface FetchPageSpeedInsightsParams {
       }
     };
     console.log('data', data);
+    const ps = data?.lighthouseResult?.categories.performance.score * 100 || ''
+    const lcp = data?.lighthouseResult.audits.metrics.details.items[0].largestContentfulPaint
+    const cls = data?.lighthouseResult.audits.metrics.details.items[0].cumulativeLayoutShift
+    const fcp = data?.lighthouseResult.audits.metrics.details.items[0].firstContentfulPaint
+    const si = data?.lighthouseResult.audits.metrics.details.items[0].speedIndex
+    const tbt = data?.lighthouseResult.audits.metrics.details.items[0].totalBlockingTime
+    const ttfb = data?.lighthouseResult.audits.metrics.details.items[0].timeToFirstByte
+    const pss = data?.lighthouseResult.fullPageScreenshot.screenshot.data
+
+
+
     return (
       <div>
-        <form onSubmit={handleSubmit}>
-          <label>
-            URL:
-            <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} />
-          </label>
-          <label>
-            Strategy:
-            <select value={strategy} onChange={(e) => setStrategy(e.target.value as 'mobile' | 'desktop')}>
+        <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
+        Lab Metrics
+      </h1>
+        <form onSubmit={handleSubmit}  className="relative flex flex-1 flex-shrink-0">
+            <input 
+              className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+            type="text" value={url} onChange={(e) => setUrl(e.target.value)} />
+          <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+            <select className='rounded-md border' value={strategy} onChange={(e) => setStrategy(e.target.value as 'mobile' | 'desktop')}>
               <option value="mobile">Mobile</option>
               <option value="desktop">Desktop</option>
             </select>
-          </label>
           <button type="submit">Get Insights</button>
         </form>
         {error && <p>Error: {error}</p>}
-        {data && (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 pb-2">
-            {/* <h3>Results:</h3> */}
-            <SCard metric='Performance Score' value={data.lighthouseResult.categories.performance.score * 100}/>
-            <SCard metric='Largest Contentful Paint' value={data.lighthouseResult.audits.metrics.details.items[0].largestContentfulPaint}/>
-            <SCard metric='Cumulative Layout Shift' value={data.lighthouseResult.audits.metrics.details.items[0].cumulativeLayoutShift}/>
-            <SCard metric='First Contentful Paint' value={data.lighthouseResult.audits.metrics.details.items[0].firstContentfulPaint}/>
-            <SCard metric='Speed Index' value={data.lighthouseResult.audits.metrics.details.items[0].speedIndex}/>
-            <SCard metric='Total Blocking Time' value= {data.lighthouseResult.audits.metrics.details.items[0].totalBlockingTime}/>
-            <SCard metric='Time to First Byte' value={data.lighthouseResult.audits.metrics.details.items[0].timeToFirstByte}/>
-            <p>Screenshot: <img src={`${data.lighthouseResult.fullPageScreenshot.screenshot.data}`}/></p>
-
+            <SCard metric='Performance Score' value={ps}/>
+            <SCard metric='Largest Contentful Paint' value={lcp}/>
+            <SCard metric='Cumulative Layout Shift' value={cls}/>
+            <SCard metric='First Contentful Paint' value={fcp}/>
+            <SCard metric='Speed Index' value={si}/>
+            <SCard metric='Total Blocking Time' value= {tbt}/>
+            <SCard metric='Time to First Byte' value={ttfb}/>
+            {/* create card for screenshot */}
+            <p>Screenshot: <img src={pss}/></p>
           </div>
-        )}
       </div>
     );
   };
