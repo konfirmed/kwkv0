@@ -1,115 +1,95 @@
 "use client";
-import React, { useState, useEffect, useRef } from 'react';
-import URLInput from '@/app/ui/dashboard/urlinput';
+// app/dashboard/longtask/page.tsx
+import React, { useState, useEffect } from 'react';
+import { fetchLongTasksWithPuppeteer } from '@/app/api/longtask/route';
 
 interface LongTaskEntry {
-  name: string;
-  entryType: string;
-  startTime: number;
   duration: number;
-  containerType: string;
+  startTime: number;
 }
 
-
-
-const LongTaskPageComponent: React.FC = () => {
+const LongTaskPage: React.FC = () => {
   const [url, setUrl] = useState<string>('');
+  const [formFactor, setFormFactor] = useState<'DESKTOP' | 'MOBILE'>('DESKTOP');
   const [longTasks, setLongTasks] = useState<LongTaskEntry[]>([]);
-  const [error, setError] = useState<string>('');
-  const targetRef = useRef<HTMLDivElement | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleFormFactorChange = (selectedFormFactor: 'DESKTOP' | 'MOBILE') => {
+    setFormFactor(selectedFormFactor);
+  };
+
+  const handleGetLongTasks = async () => {
+    setLoading(true);
+    console.log(`Fetching long tasks for ${url} on ${formFactor}...`);
+    try {
+      const tasks = await fetchLongTasksWithPuppeteer(url);
+      setLongTasks(tasks);
+    } catch (error) {
+      console.error('Error fetching long tasks:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const observer = new PerformanceObserver((list) => {
-      const entries = list.getEntries() as PerformanceEntryList;
-      const filteredEntries = entries
-        .filter((entry) => entry.entryType === 'longtask')
-        .map((entry) => {
-          const containerType = identifyContainerType(entry);
-          return {
-            name: entry.name,
-            entryType: entry.entryType,
-            startTime: entry.startTime,
-            duration: entry.duration,
-            containerType,
-          };
-        });
-
-      setLongTasks((prevLongTasks) => [...prevLongTasks, ...filteredEntries]);
-    });
-
-    observer.observe({ entryTypes: ['longtask'] });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const identifyContainerType = (entry: PerformanceEntry): string => {
-    if (entry.name.includes('.js')) {
-      return 'script';
-    } else if (entry.name.includes('.jpg') || entry.name.includes('.png')) {
-      return 'image';
-    } else {
-      return 'unknown';
-    }
-  };
-
-  const handleIntersection = () => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((intersectionEntry) => {
-          console.log('Element causing long task:', intersectionEntry.target);
-        });
-      },
-      {
-        root: null,
-        threshold: 0.5, 
+    // Function to fetch long tasks using Puppeteer
+    const fetchLongTasks = async () => {
+      setLoading(true);
+      console.log('Fetching long tasks using Puppeteer...');
+      try {
+        const tasks = await fetchLongTasksWithPuppeteer(url);
+        setLongTasks(tasks);
+      } catch (error) {
+        console.error('Error fetching long tasks:', error);
+      } finally {
+        setLoading(false);
       }
-    );
+    };
 
-    if (targetRef.current) {
-      observer.observe(targetRef.current);
+    // Trigger fetching long tasks when the URL is set
+    if (url) {
+      fetchLongTasks();
     }
-  };
-
-  const handleSubmit = async () => {
-    setLongTasks([]);
-    setError('');
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log('Simulated asynchronous operation completed'); 
-      handleIntersection();
-    } catch (error) {
-      console.error('Error performing the operation:', error);
-      setError('Error performing the operation.');
-    }
-  };
+  }, [url, formFactor]);
 
   return (
     <div>
-      <h2>Long Task Analysis</h2>
-      <URLInput
-        value={url}
-        onSubmit={(enteredURL) => setUrl(enteredURL)}
-        onFormFactorChange={(formFactor) => console.log('Form Factor:', formFactor)}
-        onNetworkTypeChange={(networkType) => console.log('Network Type:', networkType)}
-        formFactor="DESKTOP"
-        // networkType="4g"
-        placeholder="Enter URL"
-      />
-      {error && <p>Error: {error}</p>}
-      <ul>
-        {longTasks.map((task, index) => (
-          <li key={index}>
-            <p>Name: {task.name}</p>
-            <p>Entry Type: {task.entryType}</p>
-            <p>Start Time: {task.startTime}</p>
-            <p>Duration: {task.duration}</p>
-            <p>Container Type: {task.containerType}</p>
-          </li>
-        ))}
-      </ul>
+    <h3>Long Task Analysis</h3>
+    <label>
+      URL:
+      <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} />
+    </label>
+    <br />
+    <label>
+      Form Factor:
+      <select value={formFactor} onChange={(e) => handleFormFactorChange(e.target.value as 'DESKTOP' | 'MOBILE')}>
+        <option value="DESKTOP">Desktop</option>
+        <option value="MOBILE">Mobile</option>
+      </select>
+    </label>
+    <br />
+    <button onClick={handleGetLongTasks} disabled={loading}>
+      {loading ? 'Loading...' : 'Get Long Tasks'}
+    </button>
+    <div>
+      {loading && <p>Loading long tasks...</p>}
+      {!loading && longTasks.length > 0 && (
+        <div>
+          <h4>Long Tasks Detected</h4>
+          <ul>
+          {longTasks.map((task: { startTime: number; duration: number }, index: number) => (
+  <li key={index}>
+    Task at {task.startTime.toFixed(2)}ms for {task.duration.toFixed(2)}ms
+  </li>
+))}
+          </ul>
+        </div>
+      )}
+      {!loading && longTasks.length === 0 && <p>No long tasks detected.</p>}
     </div>
-  );
+  </div>
+);
 };
 
-export default LongTaskPageComponent;
+export default LongTaskPage;
+
