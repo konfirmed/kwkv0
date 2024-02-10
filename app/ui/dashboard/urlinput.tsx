@@ -59,7 +59,7 @@ const URLInput: React.FC<URLInputProps> = ({
         <option value="3g">3G</option>
         <option value="fast3g">Fast 3G</option>
       </select>
-      <button onClick={() => onSubmit(value)}>Get Long Tasks</button>
+      <button onClick={() => onSubmit(value)}>Run</button>
     </div>
   );
 };
