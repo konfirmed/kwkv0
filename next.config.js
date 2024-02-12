@@ -7,7 +7,7 @@ module.exports = {
     async headers() {
         return [
             {
-                source: '/api/crux/route', // Adjust this path based on your API route
+                source: '/api/route', // Adjust this path based on your API route
                 headers: [
                     {
                         key: 'Access-Control-Allow-Origin',
