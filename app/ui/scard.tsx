@@ -1,11 +1,11 @@
-import { lusitana } from "app/ui/fonts";
+import { lusitana } from "@/app/ui/fonts";
 
 export default function SCard({
     metric,
     value,
   }: {
     metric: string;
-    value: number | string;
+    value: number | string | undefined | null;
   }) {
   
     return (

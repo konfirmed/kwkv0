@@ -93,7 +93,7 @@ const LongTaskPageComponent: React.FC = () => {
         onFormFactorChange={(formFactor) => console.log('Form Factor:', formFactor)}
         onNetworkTypeChange={(networkType) => console.log('Network Type:', networkType)}
         formFactor="DESKTOP"
-        // networkType="4g"
+        networkType="4g"
         placeholder="Enter URL"
       />
       {error && <p>Error: {error}</p>}

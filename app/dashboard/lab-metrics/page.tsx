@@ -8,9 +8,27 @@ import SCard from '@/app/ui/scard';
 // Interfaces
 interface PageSpeedInsightsResponse {
   lighthouseResult: {
-    fullPageScreenshot: string [] 
+    fullPageScreenshot: {
+      screenshot: {
+        data: string;
+      }
+    }
     audits: {
-      metrics: []
+      metrics: 
+        {
+          details: {
+            items: [
+              {
+                largestContentfulPaint: number;
+                cumulativeLayoutShift: number;
+                firstContentfulPaint: number;
+                speedIndex: number;
+                totalBlockingTime: number;
+                timeToFirstByte: number;
+              }
+            ]
+          }
+        }
     }
     categories: {
       performance: {
@@ -63,12 +81,13 @@ interface FetchPageSpeedInsightsParams {
     
     const rawps = data?.lighthouseResult?.categories.performance.score
     const ps = rawps ? Math.round(rawps * 100) : 0
-    const lcp = data?.lighthouseResult.audits.metrics.details.items[0].largestContentfulPaint
-    const cls = data?.lighthouseResult.audits.metrics.details.items[0].cumulativeLayoutShift
-    const fcp = data?.lighthouseResult.audits.metrics.details.items[0].firstContentfulPaint
-    const si = data?.lighthouseResult.audits.metrics.details.items[0].speedIndex
-    const tbt = data?.lighthouseResult.audits.metrics.details.items[0].totalBlockingTime
-    const ttfb = data?.lighthouseResult.audits.metrics.details.items[0].timeToFirstByte
+    const audit = data?.lighthouseResult.audits
+    const lcp = audit?.metrics.details.items[0].largestContentfulPaint
+    const cls = audit?.metrics.details.items[0].cumulativeLayoutShift
+    const fcp = audit?.metrics.details.items[0].firstContentfulPaint
+    const si = audit?.metrics.details.items[0].speedIndex
+    const tbt = audit?.metrics.details.items[0].totalBlockingTime
+    const ttfb = audit?.metrics.details.items[0].timeToFirstByte
     const pss = data?.lighthouseResult.fullPageScreenshot.screenshot.data
 
 

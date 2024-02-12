@@ -16,16 +16,42 @@ interface CruxApiRequest {
 }
 
 interface CruxApiResponse {
-  // Define the response structure according to the API documentation
-    record?: string[];
-    metrics?: string[];
-    first_input_delay: string;
-    largest_contentful_paint?: string;
-    cumulative_layout_shift?: string;
-    first_contentful_paint?: string;
-    experimental_time_to_first_byte?: string;
-    interaction_to_next_paint?: string;
+  record: {
+    metrics: {
+      largest_contentful_paint: {
+        percentiles: {
+          p75: string;
+        }
+      };
+      first_input_delay: {
+        percentiles: {
+          p75: string;
+        }
+      };
+      cumulative_layout_shift: {
+        percentiles: {
+          p75: string;
+        }
+      };
+      first_contentful_paint: {
+        percentiles: {
+          p75: string;
+        }
+      };
+      experimental_time_to_first_byte: {
+        percentiles: {
+          p75: string;
+        }
+      };
+      interaction_to_next_paint: {
+        percentiles: {
+          p75: string;
+        }
+      };
+    };
+  };
 }
+
 
 // Function to query the CrUX API
 async function queryCruxApi(apiKey: string, requestData: CruxApiRequest): Promise<CruxApiResponse> {
@@ -67,18 +93,14 @@ const DashboardMetricsPage = () => {
       }
     }, [userUrl, formFactor]); // Dependency array now includes userUrl
     console.log('data', data);
-    const lcp = data?.record?.metrics?.largest_contentful_paint.percentiles.p75;
-    const lcpp75density = data?.record?.metrics?.largest_contentful_paint.histogram[0].density;
+    const records = data?.record;
+    
+    const lcp = records?.metrics.largest_contentful_paint.percentiles.p75;
     const fid = data?.record?.metrics?.first_input_delay.percentiles.p75;
-    const fidp75density = data?.record?.metrics?.first_input_delay.histogram[0].density;
     const cls = data?.record?.metrics?.cumulative_layout_shift.percentiles.p75;
-    const clsp75density = data?.record?.metrics?.cumulative_layout_shift.histogram[0].density;
     const fcp = data?.record?.metrics?.first_contentful_paint.percentiles.p75;
-    const fcpp75density = data?.record?.metrics?.first_contentful_paint.histogram[0].density;
     const ttfb = data?.record?.metrics?.experimental_time_to_first_byte.percentiles.p75;
-    const ttfbp75density = data?.record?.metrics?.experimental_time_to_first_byte.histogram[0].density;
     const inp = data?.record?.metrics?.interaction_to_next_paint.percentiles.p75;
-    const inpp75density = data?.record?.metrics?.interaction_to_next_paint.histogram[0].density;
 
     const handleUrlChange = (value: string) => {
       setUserUrl(value);
@@ -86,12 +108,7 @@ const DashboardMetricsPage = () => {
     const handleFormFactorChange = (formFactor: 'DESKTOP' | 'PHONE' | 'TABLET') => {
         setFormFactor(formFactor);
       };
-  
-    // const handleUrlSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    //   event.preventDefault();
-    //   setData(null); // Reset data when a new URL is submitted
-    //   setError(null); // Reset error as well
-    // };
+
   
     return (
       <>
@@ -104,6 +121,7 @@ const DashboardMetricsPage = () => {
           onSubmit={handleUrlChange}
           onFormFactorChange={handleFormFactorChange}
           formFactor={formFactor}
+          strategy={'desktop'}
         />
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 pb-2">
         <MCard metric='Largest Contentful Paint (CrUX)' p75={lcp} />

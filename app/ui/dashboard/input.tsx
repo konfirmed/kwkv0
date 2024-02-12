@@ -6,8 +6,8 @@ interface URLInputProps {
   value: string;
   onSubmit: (value: string) => void;
   onFormFactorChange: (formFactor: 'DESKTOP' | 'PHONE' | 'TABLET') => void;
-  formFactor: 'desktop' | 'PHONE' | 'TABLET';
-  stratey: 'mobile' | 'desktop';
+  formFactor: 'DESKTOP' | 'PHONE' | 'TABLET';
+  strategy: 'mobile' | 'desktop';
   placeholder?: string;
 }
 

@@ -1,10 +1,10 @@
-import { lusitana } from "app/ui/fonts";
+import { lusitana } from "./fonts";
 export default function MCard({
     metric,
     p75,
   }: {
     metric: string;
-    p75: number | string;
+    p75: number | string | undefined;
   }) {
   
     return (
