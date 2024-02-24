@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
+import SCard from '@/app/ui/dashboard/scard';
 
 // Interfaces
 interface PageSpeedInsightsResponse {
@@ -22,6 +23,13 @@ interface PageSpeedInsightsResponse {
             speedIndex: number | any;
             totalBlockingTime: number | any;
             timeToFirstByte: number | any;
+          }>;
+        }
+      }
+      'resource-summary': {
+        details: {
+          items: Array<{
+            transferSize: number | any;
           }>;
         }
       }
@@ -235,26 +243,3 @@ interface FetchPageSpeedInsightsParams {
   };
   
   export default PageSpeedInsightsComponent;
-
-  export function SCard({
-    metric,
-    value,
-  }: {
-    metric: string;
-    value: number | string;
-  }) {
-  
-    return (
-      <div className="mt-5 rounded-xl bg-gray-50 p-2 shadow-sm">
-        <div className="flex p-4">
-          <h3 className="ml-2 text-sm font-medium">{metric}</h3>
-        </div>
-        <p
-          className={`${lusitana.className}
-            truncate rounded-xl bg-white px-4 py-8 text-center text-2xl`}
-        >
-          {value}
-        </p>
-      </div>
-    );
-  }
