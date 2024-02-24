@@ -4,9 +4,9 @@ import puppeteer from 'puppeteer';
 
 export async function runPage(url: string, viewport: { width: number; height: number } | null = null): Promise<string> {
   try {
-    const browser = await puppeteer.launch(
-      headless: "true",
-    );
+    const browser = await puppeteer.launch({
+      headless: true,
+    });
     const page = await browser.newPage();
     // Set the viewport if provided
     if (viewport) {
