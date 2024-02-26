@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     "app/lib/placeholder-data.js",
     "scripts/seed.js"
-, "app/api/cls.js"  ],
+, "app/api/clsAnalyze.js", "app/dashboard/lsdebuggers/page.js"  ],
   "exclude": ["node_modules"]
 }
