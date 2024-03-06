@@ -77,6 +77,7 @@ interface FetchPageSpeedInsightsParams {
         const apiKey = process.env.NEXT_PUBLIC_CRUX_API_KEY; // Use your API key if necessary
         const insightsData = await fetchPageSpeedInsights({ url, strategy, apiKey });
         setData(insightsData);
+        console.log('insightsData', insightsData);
       } catch (error) {
         if (error instanceof Error) setError(error.message);
       }

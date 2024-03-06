@@ -5,7 +5,7 @@ export default function MCard({
     p75,
   }: {
     metric: string;
-    p75: number | string;
+    p75: string | number | undefined;
   }) {
   
     return (

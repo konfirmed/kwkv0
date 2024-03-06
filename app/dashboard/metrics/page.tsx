@@ -10,11 +10,12 @@ interface MetricPercentiles {
 }
 
 interface MetricRecord {
-  largest_contentful_paint: MetricPercentiles;
+  largest_contentful_paint: MetricPercentiles
   cumulative_layout_shift: MetricPercentiles;
   first_contentful_paint: MetricPercentiles;
   experimental_time_to_first_byte: MetricPercentiles;
   interaction_to_next_paint: MetricPercentiles;
+  percentiles: any;
   p75: string;
 }
 
@@ -74,14 +75,14 @@ const DashboardMetricsPage = () => {
         .catch((error) => setError(`Error querying CrUX API: ${error}`));
     }
   }, [userUrl, formFactor]);
-
+  console.log('data', data);
   // Define metric variables here, assuming data structure is fixed
   const metrics = data?.record.metrics;
-  const lcp = metrics?.largest_contentful_paint.p75;
-  const cls = metrics?.cumulative_layout_shift.p75;
-  const fcp = metrics?.first_contentful_paint.p75;
-  const ttfb = metrics?.experimental_time_to_first_byte.p75;
-  const inp = metrics?.interaction_to_next_paint.p75;
+  const lcp = metrics?.largest_contentful_paint.percentiles.p75;
+  const cls = metrics?.cumulative_layout_shift.percentiles.p75;
+  const fcp = metrics?.first_contentful_paint.percentiles.p75;
+  const ttfb = metrics?.experimental_time_to_first_byte.percentiles.p75;
+  const inp = metrics?.interaction_to_next_paint.percentiles.p75;
 
   // Handler functions
   const handleUrlChange = (value: string) => {
@@ -103,7 +104,7 @@ const DashboardMetricsPage = () => {
           formFactor={formFactor}
         />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 pb-2">
-          {lcp && <MCard metric="Largest Contentful Paint (CrUX)" p75={lcp} />}
+          <MCard metric="Largest Contentful Paint (CrUX)" p75={lcp} />
           {fcp && <MCard metric="First Contentful Paint (CrUX)" p75={fcp} />}
           {cls && <MCard metric="Cumulative Layout Shift (CrUX)" p75={cls} />}
           {ttfb && <MCard metric="Time To First Byte (CrUX)" p75={ttfb} />}
