@@ -74,10 +74,9 @@ export function LH() {
 
 
   const [url, setUrl] = useState<string>('');
-  const [strategy, setStrategy] = useState<'mobile' | 'desktop'>('desktop');
+  const [strategy, setStrategy] = useState<'mobile' | 'desktop'>('mobile');
   const [data, setData] = useState<PageSpeedInsightsResponse | null>(null);
   const [error, setError] = useState<string>('');
-  const [value, setValue] = useState<"mobile" | "desktop">("mobile");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -94,7 +93,7 @@ export function LH() {
   };
 
   const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
-    setValue(event.target.value as "mobile" | "desktop");
+    setStrategy(event.target.value as "mobile" | "desktop");
   };
 
   const ps = data?.lighthouseResult.categories.performance.score * 100 || '0'
@@ -151,13 +150,13 @@ export function LH() {
                 placeholder="Enter URL to test"
                 type="url"
               />
-              <div className="flex flex-col lg:flex-row items-center space-x-2 mt-4 lg:mt-0">
-                <select value={value} onChange={handleChange} title="strategy" className="px-4 py-2 border border-gray-200 border-[#d3c1ae] rounded-md focus:outline-none focus:ring-2 focus:ring-[#a68b7b] dark:border-gray-800">
+              {/* <div className="flex flex-col lg:flex-row items-center space-x-2 mt-4 lg:mt-0"> */}
+                <select value={strategy} onChange={handleChange} title="strategy" className="px-4 py-2 border border-gray-200 border-[#d3c1ae] rounded-md focus:outline-none focus:ring-2 focus:ring-[#a68b7b] dark:border-gray-800">
                   <option value="mobile">Mobile</option>
                   <option value="desktop">Desktop</option>
                 </select>
                 <button type="submit" className="px-4 py-2 text-white bg-[#a68b7b] rounded-md hover:bg-[#8c7364]">Test</button>
-              </div>
+              {/* </div> */}
             </form>
           </div>
         </div>
