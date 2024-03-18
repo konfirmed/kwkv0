@@ -210,7 +210,7 @@ export function LH() {
               {cruxcls}
             </CardContent>
             <CardContent className="text-[#5d534a]">
-              Quantifies how often users experience unexpected layout shifts during the page's lifespan.
+              Quantifies how often users experience unexpected layout shifts during the lifespan of the page.
             </CardContent>
           </Card>
         </div>
@@ -505,7 +505,7 @@ export function LH() {
                 width="100"
               />
               <div className="absolute bottom-0 left-0 w-full p-2 text-sm text-white bg-[#3e3427] opacity-0 group-hover:opacity-100">
-                Time it takes for a user's browser to receive the first byte of page content.
+                Time it takes for the browser to receive the first byte of page content.
               </div>
             </div>
           </div>
