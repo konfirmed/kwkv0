@@ -152,7 +152,7 @@ export function LH() {
                 type="url"
               />
               <div className="flex flex-col lg:flex-row items-center space-x-2 mt-4 lg:mt-0">
-                <select onChange={handleChange} title="strategy" className="px-4 py-2 border border-gray-200 border-[#d3c1ae] rounded-md focus:outline-none focus:ring-2 focus:ring-[#a68b7b] dark:border-gray-800">
+                <select value={value} onChange={handleChange} title="strategy" className="px-4 py-2 border border-gray-200 border-[#d3c1ae] rounded-md focus:outline-none focus:ring-2 focus:ring-[#a68b7b] dark:border-gray-800">
                   <option value="mobile">Mobile</option>
                   <option value="desktop">Desktop</option>
                 </select>
