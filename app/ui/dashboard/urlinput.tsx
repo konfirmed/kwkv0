@@ -49,12 +49,12 @@ const URLInput: React.FC<URLInputProps> = ({
         placeholder={placeholder || 'Enter a URL'}
       />
       <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
-      <select className='rounded-md border' value={formFactor} onChange={handleFormFactorChange}>
+      <select title="FormFactor" className='rounded-md border' value={formFactor} onChange={handleFormFactorChange}>
         <option value="DESKTOP">Desktop</option>
         <option value="PHONE">Phone</option>
         <option value="TABLET">Tablet</option>
       </select>
-      <select className='rounded-md border' value={networkType} onChange={handleNetworkTypeChange}>
+      <select title="Network" className='rounded-md border' value={networkType} onChange={handleNetworkTypeChange}>
         <option value="4g">4G</option>
         <option value="3g">3G</option>
         <option value="fast3g">Fast 3G</option>

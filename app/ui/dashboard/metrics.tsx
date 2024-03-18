@@ -1,27 +1,27 @@
 import { lusitana } from '../fonts';
-import { fetchCruxData } from '@/app/lib/data';
+// import { fetchCruxData } from '@/app/lib/data';
 import { useEffect, useState } from 'react';
 
   export default async function MCardWrapper() {
-    const {
-        lcp,
-        fid,
-        cls,
-        fcp,
-        ttfb,
-        inp,
-    } = await fetchCruxData();
+    // const {
+    //     lcp,
+    //     fid,
+    //     cls,
+    //     fcp,
+    //     ttfb,
+    //     inp,
+    // } = await fetchCruxData();
   
     return (
       <>
         {/* NOTE: comment in this code when you get to this point in the course */}
   
-        <MCard metric='lcp' p75={lcp} />
+        {/* <MCard metric='lcp' p75={lcp} />
         <MCard metric='fid' p75={fid} />
         <MCard metric='cls' p75={cls} />
         <MCard metric='fcp' p75={fcp} />
         <MCard metric='ttfb' p75={ttfb} />
-        <MCard metric='inp' p75={inp} />
+        <MCard metric='inp' p75={inp} /> */}
   
       </>
     );

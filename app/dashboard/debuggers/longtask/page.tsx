@@ -87,15 +87,14 @@ const LongTaskPageComponent: React.FC = () => {
   return (
     <div>
       <h2>Long Task Analysis</h2>
-      <URLInput
+      {/* <URLInput
         value={url}
         onSubmit={(enteredURL) => setUrl(enteredURL)}
         onFormFactorChange={(formFactor) => console.log('Form Factor:', formFactor)}
-        onNetworkTypeChange={(networkType) => console.log('Network Type:', networkType)}
         formFactor="DESKTOP"
-        // networkType="4g"
+        networkType="4g"
         placeholder="Enter URL"
-      />
+      /> */}
       {error && <p>Error: {error}</p>}
       <ul>
         {longTasks.map((task, index) => (

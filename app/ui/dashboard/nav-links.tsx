@@ -11,20 +11,25 @@ import clsx from 'clsx';
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
+
+// move all debuggers to a seperate folder. This will seperate Web Perf metrics from other metrics like SEO, Accessibility, etc.
+
 const links = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon },
-  { name: 'Debuggers', href: '/dashboard/debuggers', icon: UserGroupIcon },
-  { name: 'Metrics', href: '/dashboard/metrics', icon: UserGroupIcon },
-  { name: 'PSI', href: '/dashboard/lab-metrics', icon: UserGroupIcon },
-  { name: 'LongTask', href: '/dashboard/longtask', icon: UserGroupIcon },
-  {
-    name: 'Account Dasboard',
-    href: '/dashboard/account',
-    icon: DocumentDuplicateIcon,
-  },
-  { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
-  { name: 'Invoices', href: '/dashboard/invoices', icon: UserGroupIcon },
-  { name: 'Settings', href: '/dashboard/settings', icon: UserGroupIcon },
+  // { name: 'Debuggers', href: '/dashboard/debuggers', icon: UserGroupIcon },
+  { name: 'Real User Metrics', href: '/dashboard/metrics', icon: UserGroupIcon }, 
+  { name: 'Lab Metrics', href: '/dashboard/lab-metrics', icon: UserGroupIcon },
+  // { name: 'LongTask', href: '/dashboard/longtask', icon: UserGroupIcon }, // debbuger
+  // { name: 'Layout Stability', href: '/dashboard/debuggers/dcls', icon: UserGroupIcon }, // debbuger
+  
+  // {
+  //   name: 'Account Dasboard',
+  //   href: '/dashboard/account',
+  //   icon: DocumentDuplicateIcon,
+  // },
+  // { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
+  // { name: 'Invoices', href: '/dashboard/invoices', icon: UserGroupIcon },
+  // { name: 'Settings', href: '/dashboard/settings', icon: UserGroupIcon },
 ];
 
 export default function NavLinks() {
