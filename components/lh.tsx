@@ -137,6 +137,12 @@ export function LH() {
           <Link className="text-[#5d534a] hover:text-[#3e3427]" href="#">
             Settings
           </Link>
+          <Link  className="px-4 py-2 text-white bg-[#a68b7b] rounded-md hover:bg-[#8c7364]" href="/login">
+                Log in
+            </Link>
+            <Link  className="px-4 py-2 text-white bg-[#a68b7b] rounded-md hover:bg-[#8c7364]" href="#">
+              Sign in
+          </Link>
         </nav>
       </header>
       <section className="flex flex-col flex-1 p-6 space-y-6">
