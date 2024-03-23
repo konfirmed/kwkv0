@@ -4,18 +4,6 @@ import { Cards } from '@/app/ui/dashboard/card';
 import { CardHeader, CardContent, Card } from "@/components/ui/card"
 import React, { ChangeEvent, useState } from "react"
 import Link from "next/link"
-import RevenueChart from '@/app/ui/dashboard/revenue-chart';
-// import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
-import { lusitana } from '@/app/ui/fonts';
-// import { fetchCardData } from '@/app/lib/data'; // Remove fetchLatestInvoices
-import { Suspense } from 'react';
-import {
-    RevenueChartSkeleton,
-    LatestInvoicesSkeleton,
-    CardsSkeleton,
-  } from '@/app/ui/skeletons';
- 
-
   interface PageSpeedInsightsResponse {
     lighthouseResult: {
       fullPageScreenshot: {
@@ -182,7 +170,7 @@ import {
         <h2 className="col-span-full text-xl font-semibold text-[#5d534a]">CrUX Real User Metrics</h2>
         </div>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <Cards className="p-4 bg-white shadow-md">
+          <Card className="p-4 bg-white shadow-md">
             <CardHeader className="mb-4 text-lg font-semibold">Largest Contentful Paint</CardHeader>
             <CardContent className="text-[#5d534a]">
               {cruxlcp} ms
@@ -190,8 +178,8 @@ import {
             <CardContent className="text-[#5d534a]">
               Measures the time taken for the largest content element in the viewport to become visible.
             </CardContent>
-          </Cards>
-          <Cards className="p-4 bg-white shadow-md">
+          </Card>
+          <Card className="p-4 bg-white shadow-md">
             <CardHeader className="mb-4 text-lg font-semibold">Interaction to Next Paint</CardHeader>
             <CardContent className="text-[#5d534a]">
               {cruxinp} ms
@@ -199,8 +187,8 @@ import {
             <CardContent className="text-[#5d534a]">
               Evaluates the responsiveness of a page by measuring the time from user interaction to the next paint.
             </CardContent>
-          </Cards>
-          <Cards className="p-4 bg-white shadow-md">
+          </Card>
+          <Card className="p-4 bg-white shadow-md">
             <CardHeader className="mb-4 text-lg font-semibold">Cumulative Layout Shift</CardHeader>
             <CardContent className="text-[#5d534a]">
               {cruxcls}
@@ -208,7 +196,7 @@ import {
             <CardContent className="text-[#5d534a]">
               Quantifies how often users experience unexpected layout shifts during the lifespan of the page.
             </CardContent>
-          </Cards>
+          </Card>
         </div>
         <div className="flex flex-col space-y-4">
           <h2 className="text-xl font-semibold text-[#5d534a]">Resource Summary</h2>
