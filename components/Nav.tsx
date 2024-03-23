@@ -21,8 +21,8 @@ const Nav = () => {
       <Link  className="px-4 py-2 text-white bg-[#a68b7b] rounded-md hover:bg-[#8c7364]" href="/login">
             Log in
         </Link>
-        <Link  className="px-4 py-2 text-white bg-[#a68b7b] rounded-md hover:bg-[#8c7364]" href="#">
-          Sign in
+        <Link  className="px-4 py-2 text-white bg-[#a68b7b] rounded-md hover:bg-[#8c7364]" href="/app/page">
+          Sign out
       </Link>
     </nav>
   </header></div>
