@@ -15,10 +15,14 @@ import clsx from 'clsx';
 // move all debuggers to a seperate folder. This will seperate Web Perf metrics from other metrics like SEO, Accessibility, etc.
 
 const links = [
-  { name: 'Home', href: '/dashboard', icon: HomeIcon },
+  { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
   // { name: 'Debuggers', href: '/dashboard/debuggers', icon: UserGroupIcon },
   { name: 'Real User Metrics', href: '/dashboard/metrics', icon: UserGroupIcon }, 
   { name: 'Lab Metrics', href: '/dashboard/lab-metrics', icon: UserGroupIcon },
+  { name: 'Snapshots', href: '/dashboard/snapshots', icon: UserGroupIcon },
+  { name: 'Pages', href: '/dashboard/pages', icon: UserGroupIcon },
+  { name: 'Settings', href: '/dashboard/lab-metrics', icon: UserGroupIcon },
+ 
   // { name: 'LongTask', href: '/dashboard/longtask', icon: UserGroupIcon }, // debbuger
   // { name: 'Layout Stability', href: '/dashboard/debuggers/dcls', icon: UserGroupIcon }, // debbuger
   
