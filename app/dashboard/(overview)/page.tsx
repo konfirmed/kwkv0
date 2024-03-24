@@ -25,32 +25,7 @@ export default async function Page() {
         Dashboard
       </h1>
       
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 pb-2">
-        <Card title="CrUX metrics" value={''} type="collected" />
-        <Card title="Synthetic Metrics" value={''} type="pending" />
-        <Card title="Layout Shift Debugger" value={''} type="invoices" />
-        <Card
-          title="Long Tasks Debugger"
-          value={""}
-          type="customers"
-        />
-      </div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 pb-2">
-        <Card title="Speculation Rules" value={''} type="collected" />
-        <Card title="Largest Contentful Paint" value={''} type="pending" />
-      </div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 pt-3">
-        <Card title="Actual Head" value={''} type="collected" />
-        <Card title="Sorted Head" value={''} type="pending" />
-      </div>
-      <div className="grid gap-6 pt-3">
-        <Card title="SEO Analyzer" value={''} type="invoices" />
-        <Card
-          title="Waterfall"
-          value={""}
-          type="customers"
-        />
-      </div>
+      
     </main>
   );
 }

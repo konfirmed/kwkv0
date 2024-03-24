@@ -16,20 +16,12 @@ import clsx from 'clsx';
 
 const links = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon },
-  // { name: 'Debuggers', href: '/dashboard/debuggers', icon: UserGroupIcon },
-  { name: 'Real User Metrics', href: '/dashboard/metrics', icon: UserGroupIcon }, 
-  { name: 'Lab Metrics', href: '/dashboard/lab-metrics', icon: UserGroupIcon },
-  // { name: 'LongTask', href: '/dashboard/longtask', icon: UserGroupIcon }, // debbuger
-  // { name: 'Layout Stability', href: '/dashboard/debuggers/dcls', icon: UserGroupIcon }, // debbuger
-  
-  // {
-  //   name: 'Account Dasboard',
-  //   href: '/dashboard/account',
-  //   icon: DocumentDuplicateIcon,
-  // },
-  // { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
-  // { name: 'Invoices', href: '/dashboard/invoices', icon: UserGroupIcon },
-  // { name: 'Settings', href: '/dashboard/settings', icon: UserGroupIcon },
+  { name: 'Debuggers', href: '/dashboard/debuggers', icon: UserGroupIcon },
+  { name: 'CrUX Metrics', href: '/real-users', icon: UserGroupIcon }, 
+  //create a new folder for debuggers
+  { name: 'Largest Contentful Paint', href: '/dashboard/debuggers/lcp', icon: UserGroupIcon }, // debugger
+  { name: 'LongTask', href: '/dashboard/longtask', icon: UserGroupIcon }, // debugger
+  { name: 'Layout Stability', href: '/dashboard/debuggers/dcls', icon: UserGroupIcon }, // debugger
 ];
 
 export default function NavLinks() {
