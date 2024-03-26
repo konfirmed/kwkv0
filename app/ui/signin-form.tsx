@@ -2,8 +2,8 @@
 
 import { authenticate } from '@/app/lib/actions';
 import { lusitana } from '@/app/ui/fonts';
-import Link from "next/link"
-import { CardHeader, CardContent, Card } from "@/components/ui/card"
+import Link from 'next/link';
+import { CardHeader, CardContent, Card } from '@/components/ui/card';
 import {
   AtSymbolIcon,
   KeyIcon,
@@ -14,8 +14,7 @@ import { Button } from './button';
 import { useFormState, useFormStatus } from 'react-dom';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { getProviders } from "next-auth/react";
-
+import { getProviders } from 'next-auth/react';
 
 export default function SignInForm() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
@@ -23,25 +22,21 @@ export default function SignInForm() {
   useEffect(() => {
     const setUpProviders = async () => {
       const response = await getProviders();
-
+      console.log('Providers =', response);
       setProviders(response);
     };
 
-    setUpProviders(); 
-  
-
+    setUpProviders();
   }, []);
-
 
   return (
     <form action={dispatch} className="space-y-3  ">
       <div className="w-full rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-
         <h1 className={`${lusitana.className} mb-3 text-2xl`}>
           Create an Account
         </h1>
 
-        <div className="w-full flex flex-col ">
+        <div className="flex w-full flex-col ">
           <div>
             <label
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
@@ -86,7 +81,7 @@ export default function SignInForm() {
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="password"
             >
-             Confirm Password
+              Confirm Password
             </label>
             <div className="relative">
               <input
@@ -115,13 +110,18 @@ export default function SignInForm() {
             </>
           )}
         </div>
-        <div className="my-4 bg-white w-full flex gap-4 items-center justify-center   border p-2 rounded">
-            <Image src='/google-icon.png' alt='google icon' width={30} height={30} />
-            <p className="font-bold">Sign Up with Google</p>
+        <div className="my-4 flex w-full items-center justify-center gap-4 rounded   border bg-white p-2">
+          <Image
+            src="/google-icon.png"
+            alt="google icon"
+            width={30}
+            height={30}
+          />
+          <p className="font-bold">Sign Up with Google</p>
         </div>
-        <div className="bg-white w-full flex gap-4 items-center justify-center   border p-2 rounded">
-            <Image src='/github.png' alt='google icon' width={30} height={30} />
-            <p className="font-bold">Sign Up with Git Hub</p>
+        <div className="flex w-full items-center justify-center gap-4 rounded   border bg-white p-2">
+          <Image src="/github.png" alt="google icon" width={30} height={30} />
+          <p className="font-bold">Sign Up with Git Hub</p>
         </div>
       </div>
     </form>
@@ -132,8 +132,11 @@ function SignInButton() {
   const { pending } = useFormStatus();
 
   return (
-    <Button className="mt-4 md:mt-10  hover:bg-[#504231] w-full  bg-[#775436]" aria-disabled={pending}>
+    <Button
+      className="mt-4 w-full  bg-[#775436] hover:bg-[#504231]  md:mt-10"
+      aria-disabled={pending}
+    >
       Sign Up <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
-    </Button> 
+    </Button>
   );
 }
