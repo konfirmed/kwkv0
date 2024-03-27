@@ -1,7 +1,24 @@
-// import Freemium  from "@/components/freemium";
-import { LH } from "@/components/dash";
-
-export default function Page() {
+import CardWrapper from '@/app/ui/dashboard/cards';
+import { Card } from '@/app/ui/dashboard/cards';
+import RevenueChart from '@/app/ui/dashboard/revenue-chart';
+// import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
+import { lusitana } from '@/app/ui/fonts';
+// import { fetchCardData } from '@/app/lib/data'; // Remove fetchLatestInvoices
+import { Suspense } from 'react';
+import {
+    RevenueChartSkeleton,
+    LatestInvoicesSkeleton,
+    CardsSkeleton,
+  } from '@/app/ui/skeletons';
+ 
+export default async function Page() {
+  // const {
+  //   numberOfInvoices,
+  //   numberOfCustomers,
+  // TRA LA LA   totalPaidInvoices,
+  //   totalPendingInvoices,
+  // } = await fetchCardData();
+      
   return (
     // <Freemium />
     <LH />
