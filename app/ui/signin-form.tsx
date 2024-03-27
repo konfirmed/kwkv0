@@ -16,9 +16,10 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { getProviders } from 'next-auth/react';
 
+
 export default function SignInForm() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
-  const [providers, setProviders] = useState(null);
+  const [providers, setProviders] = useState(null );
   useEffect(() => {
     const setUpProviders = async () => {
       const response = await getProviders();
