@@ -7,7 +7,6 @@ import type { User } from '@/app/lib/definitions';
 import { authConfig } from './auth.config';
 import GoogleProvider from 'next-auth/providers/google';
 
-
 async function getUser(email: string): Promise<User | undefined> {
   try {
     const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;

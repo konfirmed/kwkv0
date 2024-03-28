@@ -14,10 +14,12 @@ export default async function Page() {
   // TRA LA LA   totalPaidInvoices,
   //   totalPendingInvoices,
   // } = await fetchCardData();
-      
+
   return (
     <main>
-      <LH />
+
+
+    <LH />
     </main>
   );
 }
