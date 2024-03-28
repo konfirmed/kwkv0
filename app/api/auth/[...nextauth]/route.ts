@@ -18,21 +18,21 @@ async function getUserByEmail(email: string | null | undefined): Promise<User | 
       throw new Error('Failed to fetch user.');
     }
   }
-  
+
   async function createUserFromGoogleProfile(profile: any): Promise<User> {
     try {
       // Extract user information from Google profile
       const email = profile.email;
       const username = profile.name;
       const image = profile.picture;
-  
+
       // Create a new user in the database
       const newUser = await sql<User>`
         INSERT INTO users (email, username, image)
         VALUES (${email}, ${username}, ${image})
         RETURNING *
       `;
-  
+
       return newUser.rows[0];
     } catch (error) {
       console.error('Failed to create user:', error);
@@ -54,17 +54,17 @@ const handler = NextAuth({
           const parsedCredentials = z
             .object({ email: z.string().email(), password: z.string().min(6) })
             .safeParse(credentials);
-  
+
           if (parsedCredentials.success) {
             const { email, password } = parsedCredentials.data;
-  
+
             const user = await getUser(email);
             if (!user) return null;
-  
+
             const passwordsMatch = await bcrypt.compare(password, user.password);
             if (passwordsMatch) return user;
           }
-  
+
           console.log('Invalid credentials');
           return null;
         },
@@ -82,15 +82,15 @@ const handler = NextAuth({
         try {
             // Check if the user exists in the database based on their email
             const existingUser = await getUserByEmail(profile?.email);
-    
+
             // If the user exists, sign them in
             if (existingUser) {
               return true;
             }
-    
+
             // If the user doesn't exist, create a new user using their Google profile
             await createUserFromGoogleProfile(profile);
-    
+
             // Sign in the user after creating their account
             return true;
           } catch (error) {

@@ -1,7 +1,7 @@
 import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
-
 import Nav from '@/components/Nav';
+
 import Provider from '@/components/Provider';
 
 export default function RootLayout({
@@ -11,7 +11,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Provider>
+       <Provider>
         <body className={`${inter.className} antialiased`}>
           <Nav />
           {children}
