@@ -1,6 +1,7 @@
 import AcmeLogo from '@/app/ui/acme-logo';
 import LoginForm from '@/app/ui/login-form';
 import SignInForm from '../ui/signin-form';
+import GoogleSignInButton from '@/components/GoogleSignInButton';
 
 export default function LoginPage() {
   return (
@@ -12,6 +13,7 @@ export default function LoginPage() {
           </div>
         </div>
         <SignInForm />
+        <GoogleSignInButton />
       </div>
     </main>
   );
