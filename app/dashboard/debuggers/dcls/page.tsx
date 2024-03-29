@@ -2,17 +2,19 @@
 import { CardHeader, CardContent, Card } from "@/components/ui/card"
 import React, { ChangeEvent, useState } from "react"
 import { runPage } from '@/app/lib/runPage';
-import { cls, element } from '@/app/lib/runPage';
 
 export default function DashboardDebuggersDclsPage() {
 
 
   const [url, setUrl] = useState<string>('');
   const [device, setDevice] = useState<'mobile' | 'desktop'>('mobile');
-  const [pageTitle, setPageTitle] = useState<string | null>(null);
+  // const [clsValue, setCLS] = useState<string | null>(null);
+  // const [elementName, setElem] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [debugCLS, setDebugCLS] = useState<{ cls: number, element: string } | null>(null);
 
-  const handleRunPage = async () => {
+  const handleRunPage = async (event: React.FormEvent) => {
+    event.preventDefault();
     setIsLoading(true);
     try {
       let viewport;
@@ -22,12 +24,11 @@ export default function DashboardDebuggersDclsPage() {
       } else if (device === 'desktop') {
         viewport = { width: 1920, height: 1080 };
       }
-      const title = await runPage(url, viewport);
-      setPageTitle(title);
-      console.log('title', title)
+      const debugCLS = await runPage(url, viewport);
+      setDebugCLS(debugCLS); // Fix: Update the type of debugCLS
     } catch (error) {
       console.error('Failed to fetch page title:', error);
-      setPageTitle('Failed to fetch page title');
+      setDebugCLS({ cls: 0, element: `Error: ${`error`}` });
     } finally {
       setIsLoading(false);
     }
@@ -40,8 +41,12 @@ export default function DashboardDebuggersDclsPage() {
   const handleURLChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
   };
-  console.log('pageTitle', pageTitle)
 
+  const clsValue = debugCLS?.cls;
+  const elementName = debugCLS?.element;
+  console.log('1', debugCLS)
+  console.log('3', clsValue)
+  console.log('4', elementName)
   return (
       <section className="flex flex-col flex-1 p-6 space-y-6">
         <div className="flex flex-col lg:flex-row items-center justify-between">
@@ -72,13 +77,10 @@ export default function DashboardDebuggersDclsPage() {
         <Card className="p-4 bg-white shadow-md">
             <CardHeader className="mb-4 text-lg font-semibold">Layout Shift</CardHeader>
             <CardContent className="text-[#5d534a]">
-              {pageTitle}
-              {/* {pageTitle ? pageTitle : 'No title'} */}
-              {cls}
-              {element}
+              CLS Score - {clsValue}
             </CardContent>
             <CardContent className="text-[#5d534a]">
-              Measures the time taken for the largest content element in the viewport to become visible.
+             Elements -  {elementName}
             </CardContent>
           </Card>
       </section>

@@ -1,7 +1,7 @@
 "use server";
 import puppeteer from 'puppeteer';
 
-export async function runPage(url: string, viewport: { width: number; height: number } | null = null): Promise<{ cls: number, element: string }> {
+export async function runPage(url: string, viewport: { width: number; height: number } | null = null): Promise<{ cls: number, element: string}> {
     try {
         const browser = await puppeteer.launch({
           headless: true,
@@ -53,8 +53,6 @@ export async function runPage(url: string, viewport: { width: number; height: nu
           });
         });
 
-        console.log('clsResult', clsResult);
-
         await browser.close();
         return clsResult;
     } catch (error) {
@@ -63,9 +61,9 @@ export async function runPage(url: string, viewport: { width: number; height: nu
     }
 }
 
-export async function cls(cls: number, element: string) {
-    return cls;
-}
-export async function element(cls: number, element: string) {
-    return element;
-}
+export async function clsResult() {
+    return (
+        { clsValue,
+        elementName }
+    )
+} 
