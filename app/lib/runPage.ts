@@ -62,8 +62,10 @@ export async function runPage(url: string, viewport: { width: number; height: nu
 }
 
 export async function clsResult() {
-    return (
-        { clsValue,
-        elementName }
-    )
+  let clsValue;
+  let elementName // Declare and initialize clsValue variable
+  return (
+    { clsValue,
+    elementName }
+  )
 } 
