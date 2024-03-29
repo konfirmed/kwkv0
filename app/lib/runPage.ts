@@ -37,7 +37,7 @@ export async function runPage(url: string, viewport: { width: number; height: nu
                         currentRect,
                         previousRect,
                       });
-                      element = node;
+                      element += node;
                     }
                   }
                 }
