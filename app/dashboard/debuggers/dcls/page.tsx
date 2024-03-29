@@ -2,6 +2,7 @@
 import { CardHeader, CardContent, Card } from "@/components/ui/card"
 import React, { ChangeEvent, useState } from "react"
 import { runPage } from '@/app/lib/runPage';
+import { cls, element } from '@/app/lib/runPage';
 
 export default function DashboardDebuggersDclsPage() {
 
@@ -72,6 +73,9 @@ export default function DashboardDebuggersDclsPage() {
             <CardHeader className="mb-4 text-lg font-semibold">Layout Shift</CardHeader>
             <CardContent className="text-[#5d534a]">
               {pageTitle}
+              {/* {pageTitle ? pageTitle : 'No title'} */}
+              {cls}
+              {element}
             </CardContent>
             <CardContent className="text-[#5d534a]">
               Measures the time taken for the largest content element in the viewport to become visible.
