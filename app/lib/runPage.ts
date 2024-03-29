@@ -16,17 +16,23 @@ export async function runPage(url: string, viewport: { width: number; height: nu
           window.scrollTo(0, scrollDistance);
         });
 
-        const clsResult = await page.evaluate(() => {
-          return new Promise((resolve, reject) => {
+        const clsResult: { cls: number, element: string } = await page.evaluate(() => {
+          return new Promise<{ cls: number, element: string }>((resolve, reject) => {
             let cls = 0;
             let element = '';
 
             const observer = new PerformanceObserver((list) => {
               for (const entry of list.getEntries()) {
-                if (!entry.hadRecentInput) {
-                  cls += entry.value;
-                  if (entry.sources) {
-                    for (const { node, currentRect, previousRect } of entry.sources) {
+                const performanceEntry = entry as PerformanceEntry & {
+                  hadRecentInput: boolean;
+                  value: number;
+                  sources: { node: string, currentRect: string, previousRect: string }[];
+                };
+
+                if (!performanceEntry.hadRecentInput) {
+                  cls += performanceEntry.value;
+                  if (performanceEntry.sources) {
+                    for (const { node, currentRect, previousRect } of performanceEntry.sources) {
                       console.log("LayoutShift source:", node, {
                         currentRect,
                         previousRect,
@@ -38,12 +44,11 @@ export async function runPage(url: string, viewport: { width: number; height: nu
               }
               resolve({ cls, element });
             });
-
-            observer.observe({ type: "layout-shift", buffered: true });
+          observer.observe({ type: "layout-shift", buffered: true });
 
             setTimeout(() => {
               observer.disconnect();
-              resolve(cls);
+              resolve({ cls, element });
             }, 5000);
           });
         });
