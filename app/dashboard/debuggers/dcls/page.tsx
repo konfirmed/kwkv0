@@ -44,9 +44,7 @@ export default function DashboardDebuggersDclsPage() {
 
   const clsValue = debugCLS?.cls;
   const elementName = debugCLS?.element;
-  console.log('1', debugCLS)
-  console.log('3', clsValue)
-  console.log('4', elementName)
+
   return (
       <section className="flex flex-col flex-1 p-6 space-y-6">
         <div className="flex flex-col lg:flex-row items-center justify-between">

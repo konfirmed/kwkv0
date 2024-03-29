@@ -37,7 +37,7 @@ export async function runPage(url: string, viewport: { width: number; height: nu
                         currentRect,
                         previousRect,
                       });
-                      element += node;
+                      element += `${node} shifted from ${previousRect} to ${currentRect}\n by ${performanceEntry.value} because of ${performanceEntry.sources}.\n`;
                     }
                   }
                 }
