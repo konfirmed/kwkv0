@@ -2,11 +2,13 @@
 
 import { FormEvent } from 'react';
 import Link from 'next/link';
+import {signIn} from 'next-auth/react';
+import Image from 'next/image';
 import { authenticate } from '@/app/lib/actions';
 import {
   AtSymbolIcon,
   KeyIcon,
-  ExclamationCircleIcon,
+  // ExclamationCircleIcon,
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 // import { useFormState, useFormStatus } from 'react-dom';
@@ -142,6 +144,39 @@ export default function Form() {
             </label>
           </div>
         </div>
+        <div className="my-4 flex w-full items-center justify-center gap-4 rounded   border bg-white p-2">
+        <button onClick={() => signIn('google')} className="font-bold">
+  <Image
+    src="/google-icon.png"
+    alt="google icon"
+    width={30}
+    height={30}
+    style={{ marginRight: '5px' }} // Adjust margin as needed
+  />
+  Sign in with Google
+</button>
+
+        </div>
+        <div className="flex w-full items-center justify-center gap-4 rounded   border bg-white p-2">
+      <button onClick={() => signIn('github')} className="font-bold">
+      
+            <Image src="/github.png" alt="google icon" width={30} height={30} />
+        Sign in with GitHub
+        </button>
+        </div>
+ {/* 
+            <Image
+              src="/google-icon.png"
+              alt="google icon"
+              width={30}
+              height={30}
+            />
+            <p className="font-bold">Sign Up with Google</p>
+          </div>
+          <div className="flex w-full items-center justify-center gap-4 rounded   border bg-white p-2">
+            <Image src="/github.png" alt="google icon" width={30} height={30} />
+            <p className="font-bold">Sign Up with Git Hub</p>
+          </div> */}
 
       {/* <div
           className="flex h-8 items-end space-x-1"
@@ -155,30 +190,9 @@ export default function Form() {
             </>
           )}
         </div> */}
-      {/* <div className="my-4 flex w-full items-center justify-center gap-4 rounded   border bg-white p-2">
-            <Image
-              src="/google-icon.png"
-              alt="google icon"
-              width={30}
-              height={30}
-            />
-            <p className="font-bold">Sign Up with Google</p>
-          </div>
-          <div className="flex w-full items-center justify-center gap-4 rounded   border bg-white p-2">
-            <Image src="/github.png" alt="google icon" width={30} height={30} />
-            <p className="font-bold">Sign Up with Git Hub</p>
-          </div> */}
         </div>
       </form>
-    {/* function RegisterButton() {
-  const { pending } = useFormStatus();
-  return (
-    <button
-      className="mt-4 w-full  bg-[#775436] hover:bg-[#504231]  md:mt-10"
-      aria-disabled={pending}
-    >
-      Sign Up <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
-    </button> */}
+  
 
     <GoogleSignInButton />
     </div>

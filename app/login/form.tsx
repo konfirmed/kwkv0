@@ -1,20 +1,19 @@
-'use client';
-
+'use client'
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router'; // Import useRouter
 import { FormEvent } from 'react';
 import {
-    AtSymbolIcon,
-    KeyIcon,
-    ExclamationCircleIcon,
-  } from '@heroicons/react/24/outline';
-import { ArrowRightIcon } from '@heroicons/react/20/solid';
+  AtSymbolIcon,
+  KeyIcon,
+  ArrowRightIcon,
+} from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
 import AcmeLogo from '@/app/ui/acme-logo';
 
 export default function Form() {
-  const router = useRouter();
+  const router = useRouter(); // Use useRouter here
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -25,11 +24,14 @@ export default function Form() {
     });
 
     console.log({ response });
+
     if (!response?.error) {
-      router.push('/');
-      router.refresh();
+      router.push('/dashboard');
+    } else {
+      console.error('Authentication failed:', response.error);
     }
   };
+
   return (
     <main className="flex items-center justify-center md:h-screen">
       <div className="relative mx-auto flex w-full max-w-[600px] flex-col space-y-2.5 p-4 md:-mt-32">
@@ -39,7 +41,7 @@ export default function Form() {
           </div>
         </div>
         <form onSubmit={handleSubmit} className="space-y-3">
-          <div className="w-full rounded-lg bg-gray-50 px-6 pb-4 pt-8">
+        <div className="w-full rounded-lg bg-gray-50 px-6 pb-4 pt-8">
             <h1 className={`${lusitana.className} mb-3 text-2xl`}>
               Login
             </h1>
@@ -93,8 +95,8 @@ export default function Form() {
           <div>
             <label className="mb-3 mt-5 block text-xs font-medium text-gray-900">
               Do not have an account?{' '}
-              <Link href="/register"
-                className="#775436">Register here
+              <Link href="/register">
+                <a className="text-[#775436]">Register here</a>
               </Link>
             </label>
           </div>

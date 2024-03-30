@@ -3,12 +3,8 @@ import Credentials from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt';
 import { sql } from '@vercel/postgres';
 import { z } from 'zod';
-import { useSession } from 'next-auth/react';
 import type { User } from '@/app/lib/definitions';
 import { authConfig } from './auth.config';
-import GoogleProvider from "next-auth/providers/google";
-import GithubProvider from "next-auth/providers/github";
-
 
 async function getUser(email: string): Promise<User | undefined> {
   try {
@@ -43,13 +39,5 @@ export const { auth, signIn, signOut } = NextAuth({
         return null;
       },
     }),
-    GoogleProvider ({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-    }),
-    GithubProvider ({
-      clientId: process.env.GITHUB_CLIENT_ID as string,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-    })
   ],
 });

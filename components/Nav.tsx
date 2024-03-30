@@ -4,18 +4,13 @@ import { signOut } from '@/auth';
 
 const Nav = () => {
   return (
-    <div className='sticky border-blue-500 top-0 left-0 z-50'>      <header className="flex items-center  justify-between p-6 bg-[#e8e6e1] shadow-md ">
+    <div className='sticky border-blue-500 top-0 left-0 z-50'>      
+    <header className="flex items-center  justify-between p-6 bg-[#e8e6e1] shadow-md ">
     <div className="flex items-center space-x-4">
       <h1 className="text-2xl font-semibold text-[#5d534a]"><Link href="/">KWK</Link></h1>
     </div>
     <nav className="flex items-center  space-x-6">
-      <Link className="text-[#5d534a] hover:text-[#3e3427]" href="/dashboard">
-        Dashboard
-      </Link>
-      <Link className="text-[#5d534a] hover:text-[#3e3427]" href="/real-users">
-        CrUX Metrics
-      </Link>
-      <Link className="text-[#5d534a] hover:text-[#3e3427]" href="/debuggers">
+      <Link className="text-[#5d534a] hover:text-[#3e3427]" href="/debuggers/dcls">
         Debuggers
       </Link>
       <form

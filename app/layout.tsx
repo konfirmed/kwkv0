@@ -13,11 +13,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-      <nav>
+      {/* <nav>
           {!!session && <Logout />}
           {!session && <Link href="/login">Login</Link>}
-        </nav>
-        {/* <Nav /> */}
+        </nav> */}
+        <Nav />
         {children}</body>
     </html>
   );
