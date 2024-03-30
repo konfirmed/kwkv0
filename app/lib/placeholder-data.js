@@ -47,12 +47,6 @@ const customers = [
     image_url: '/customers/michael-novotny.png',
   },
   {
-    id: 'cljzbrld70000reechjui5324',
-    name: 'Kanmi Obasa',
-    email: 'null',
-    image_url: '/customers/steven-tey.png',
-  },
-  {
     id: '126eed9c-c90c-4ef6-a4a8-fcf7408d3c66',
     name: 'Emil Kowalski',
     email: 'emil@kowalski.com',
