@@ -10,7 +10,12 @@ export async function runPage(url: string, viewport: { width: number; height: nu
         if (viewport) {
           await page.setViewport(viewport);
         }
+
+        // Navigate to the page
+        // await page.goto(url, { waitUntil: 'networkidle2' });
         await page.goto(url, { waitUntil: 'networkidle0' });
+        // await page.goto(url, { waitUntil: 'load' });
+
         await page.evaluate(() => {
           const scrollDistance = document.body.scrollHeight * 0.70;
           window.scrollTo(0, scrollDistance);
@@ -37,7 +42,7 @@ export async function runPage(url: string, viewport: { width: number; height: nu
                         currentRect,
                         previousRect,
                       });
-                      element += `${node} shifted from ${previousRect} to ${currentRect}\n by ${performanceEntry.value} because of ${performanceEntry.sources}.\n`;
+                      element += `${node} shifted from ${previousRect} to ${currentRect}\n by ${performanceEntry.value}.\n`;
                     }
                   }
                 }
@@ -55,7 +60,8 @@ export async function runPage(url: string, viewport: { width: number; height: nu
 
         await browser.close();
         return clsResult;
-    } catch (error) {
+    } 
+    catch (error) {
         console.error('Failed to run page:', error);
         throw error; // Throw the error so it can be handled by the calling code
     }

@@ -26,9 +26,10 @@ export default function DashboardDebuggersDclsPage() {
       }
       const debugCLS = await runPage(url, viewport);
       setDebugCLS(debugCLS); // Fix: Update the type of debugCLS
+      console.log('debugCLS', debugCLS);
     } catch (error) {
       console.error('Failed to fetch page title:', error);
-      setDebugCLS({ cls: 0, element: `Error: ${`error`}` });
+      setDebugCLS({ cls: 0, element: `Failed to fetch page title`});
     } finally {
       setIsLoading(false);
     }
@@ -45,6 +46,7 @@ export default function DashboardDebuggersDclsPage() {
   const clsValue = debugCLS?.cls;
   const elementName = debugCLS?.element;
 
+
   return (
       <section className="flex flex-col flex-1 p-6 space-y-6">
         <div className="flex flex-col lg:flex-row items-center justify-between">
@@ -53,7 +55,7 @@ export default function DashboardDebuggersDclsPage() {
             <form onSubmit={handleRunPage} className="flex space-x-4">
               <input
                 value={url} onChange={handleURLChange}
-                className="px-4 py-2 border border-gray-200 border-[#d3c1ae] rounded-md focus:outline-none focus:ring-2 focus:ring-[#a68b7b] dark:border-gray-800"
+                className="px-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#a68b7b] dark:border-gray-800"
                 placeholder="Enter URL to test"
                 type="url"
               />

@@ -1,7 +1,4 @@
 "use client";
-import Link from "next/link"
-// import { ResponsiveLine } from "@nivo/line"
-// import { ResponsiveBar } from "@nivo/bar"
 import { CardHeader, CardContent, Card } from "@/components/ui/card"
 import React, { ChangeEvent, useState } from "react"
 
