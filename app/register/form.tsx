@@ -15,8 +15,11 @@ import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { lusitana } from '@/app/ui/fonts';
 import AcmeLogo from '@/app/ui/acme-logo';
 import GoogleSignInButton from '@/components/GoogleSignInButton';
+import { useRouter } from 'next/navigation';
 
 export default function Form() {
+  const router = useRouter(); // Use useRouter here
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -29,6 +32,16 @@ export default function Form() {
         password: formData.get('password'),
       }),
     });
+    if(response.ok){
+      const response = await signIn('credentials', {
+        email: formData.get('email'),
+        password: formData.get('password'),
+        redirect: false,
+      });
+      if(response?.ok){
+        router.push('/dashboard');
+      }
+    }
     console.log({ response });
   };
   return (

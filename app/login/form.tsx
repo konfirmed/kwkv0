@@ -1,7 +1,6 @@
 'use client'
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/router'; // Import useRouter
 import { FormEvent } from 'react';
 import {
   AtSymbolIcon,
@@ -10,6 +9,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
 import AcmeLogo from '@/app/ui/acme-logo';
+import { useRouter } from 'next/navigation';
 
 export default function Form() {
   const router = useRouter(); // Use useRouter here
@@ -95,8 +95,8 @@ export default function Form() {
           <div>
             <label className="mb-3 mt-5 block text-xs font-medium text-gray-900">
               Do not have an account?{' '}
-              <Link href="/register">
-                <a className="text-[#775436]">Register here</a>
+              <Link href="/register" className="text-[#775436]">
+               Register here
               </Link>
             </label>
           </div>

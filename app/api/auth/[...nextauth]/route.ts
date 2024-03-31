@@ -14,6 +14,7 @@ const handler = NextAuth({
   },
   providers: [
     CredentialsProvider({
+      name: "credentials",
       credentials: {
         email: {},
         password: {},
@@ -22,6 +23,8 @@ const handler = NextAuth({
         const response = await sql`
           SELECT * FROM users WHERE email=${credentials?.email}`;
         const user = response.rows[0];
+        console.log('user =' , response)
+        console.log('credentials =' , credentials)
 
         const passwordCorrect = await compare(
           credentials?.password || '',
