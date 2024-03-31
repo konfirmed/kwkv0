@@ -1,18 +1,16 @@
-'use client'
+'use client';
+
+import { FormEvent, useState } from 'react';
 import Link from 'next/link';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/router'; // Import useRouter
-import { FormEvent } from 'react';
-import {
-  AtSymbolIcon,
-  KeyIcon,
-  ArrowRightIcon,
-} from '@heroicons/react/24/outline';
-import { lusitana } from '@/app/ui/fonts';
+import { useRouter } from 'next/router'; 
 import AcmeLogo from '@/app/ui/acme-logo';
+import { AtSymbolIcon, KeyIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { lusitana } from '@/app/ui/fonts';
 
 export default function Form() {
-  const router = useRouter(); // Use useRouter here
+  const router = useRouter();
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,12 +21,11 @@ export default function Form() {
       redirect: false,
     });
 
-    console.log({ response });
-
-    if (!response?.error) {
+    if (response?.ok) {
+      setError('');
       router.push('/dashboard');
     } else {
-      console.error('Authentication failed:', response.error);
+      setError(response?.error || 'Login failed. Please try again.');
     }
   };
 
@@ -90,6 +87,7 @@ export default function Form() {
               Login <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" /> 
             </button>
           </div>
+          {error && <p>{error}</p>}
         </form>
         <div className="flex w-full flex-col">
           <div>

@@ -1,36 +1,51 @@
 'use client';
 
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import Link from 'next/link';
-import {signIn} from 'next-auth/react';
-import Image from 'next/image';
-import { authenticate } from '@/app/lib/actions';
-import {
-  AtSymbolIcon,
-  KeyIcon,
-  // ExclamationCircleIcon,
-} from '@heroicons/react/24/outline';
-import { ArrowRightIcon } from '@heroicons/react/20/solid';
-// import { useFormState, useFormStatus } from 'react-dom';
-import { lusitana } from '@/app/ui/fonts';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router'; 
 import AcmeLogo from '@/app/ui/acme-logo';
-import GoogleSignInButton from '@/components/GoogleSignInButton';
+import { AtSymbolIcon, KeyIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
+import { lusitana } from '@/app/ui/fonts';
 
 export default function Form() {
+  const router = useRouter();
+  const [error, setError] = useState('');
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const response = await fetch(`/api/auth/register`, {
+    const response = await fetch(`/api/register`, {
       method: 'POST',
       body: JSON.stringify({
-        id: formData.get('id'),
         name: formData.get('name'),
         email: formData.get('email'),
         password: formData.get('password'),
       }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
-    console.log({ response });
+
+    if (response.ok) {
+      setError('');
+      const result = await signIn('credentials', {
+        redirect: false,
+        email: formData.get('email'),
+        password: formData.get('password'),
+      });
+
+      if (result?.ok) {
+        router.push('/dashboard');
+      } else {
+        setError(result?.error || 'An error occurred during sign-in.');
+      }
+    } else {
+      setError('Registration failed. Please try again.');
+    }
   };
+
   return (
     <main className="flex items-center justify-center md:h-screen">
       <div className="relative mx-auto flex w-full max-w-[600px] flex-col space-y-2.5 p-4 md:-mt-32">
@@ -164,37 +179,9 @@ export default function Form() {
         Sign in with GitHub
         </button>
         </div>
- {/* 
-            <Image
-              src="/google-icon.png"
-              alt="google icon"
-              width={30}
-              height={30}
-            />
-            <p className="font-bold">Sign Up with Google</p>
-          </div>
-          <div className="flex w-full items-center justify-center gap-4 rounded   border bg-white p-2">
-            <Image src="/github.png" alt="google icon" width={30} height={30} />
-            <p className="font-bold">Sign Up with Git Hub</p>
-          </div> */}
-
-      {/* <div
-          className="flex h-8 items-end space-x-1"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {errorMessage && (
-            <>
-              <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-              <p className="text-sm text-red-500">{errorMessage}</p>
-            </>
-          )}
-        </div> */}
         </div>
+        {error && <p>{error}</p>}
       </form>
-  
-
-    <GoogleSignInButton />
     </div>
     </main>
   );
