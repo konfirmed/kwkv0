@@ -3,6 +3,11 @@ import { CardHeader, CardContent, Card } from "@/components/ui/card"
 import React, { ChangeEvent, useState } from "react"
 import { runPage } from '@/app/lib/runPage';
 
+const styles = {
+  preformatted: 'whitespace-pre-wrap',
+};
+
+
 export default function DashboardDebuggersDclsPage() {
 
 
@@ -11,25 +16,28 @@ export default function DashboardDebuggersDclsPage() {
   // const [clsValue, setCLS] = useState<string | null>(null);
   // const [elementName, setElem] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [debugCLS, setDebugCLS] = useState<{ cls: number, element: string } | null>(null);
+  const [debugCLS, setDebugCLS] = useState<{ cls: number, element: string} | null>(null);
 
   const handleRunPage = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
     try {
+      const VIEWPORT_SIZES = {
+        'mobile': { width: 375, height: 667 },
+        'desktop': { width: 1920, height: 1080 },
+        // Add more sizes as needed
+    };
       let viewport;
       // Define the viewport dimensions
-      if (device === 'mobile') {
-        viewport = { width: 375, height: 667 };
-      } else if (device === 'desktop') {
-        viewport = { width: 1920, height: 1080 };
-      }
+      if (device in VIEWPORT_SIZES) {
+        viewport = VIEWPORT_SIZES[device];
+    }
       const debugCLS = await runPage(url, viewport);
       setDebugCLS(debugCLS); // Fix: Update the type of debugCLS
       console.log('debugCLS', debugCLS);
     } catch (error) {
       console.error('Failed to fetch page title:', error);
-      setDebugCLS({ cls: 0, element: `Failed to fetch page title`});
+      setDebugCLS({ cls: 0, element: `Failed to fetch element`});
     } finally {
       setIsLoading(false);
     }
@@ -46,6 +54,17 @@ export default function DashboardDebuggersDclsPage() {
   const clsValue = debugCLS?.cls;
   const elementName = debugCLS?.element;
 
+  function interpretScore(cls: number) {
+    if (cls < 0.1) {
+        return 'Good';
+    } else if (cls < 0.25) {
+        return 'Needs Improvement';
+    } else if (cls > 0.25) {
+        return 'Poor';
+    } else {
+        return 'Unknown';
+    }
+}
 
   return (
       <section className="flex flex-col flex-1 p-6 space-y-6">
@@ -77,10 +96,10 @@ export default function DashboardDebuggersDclsPage() {
         <Card className="p-4 bg-white shadow-md">
             <CardHeader className="mb-4 text-lg font-semibold">Layout Shift</CardHeader>
             <CardContent className="text-[#5d534a]">
-              CLS Score - {clsValue}
+              CLS Score - {clsValue || 0} ({interpretScore(clsValue || 0)})
             </CardContent>
-            <CardContent className="text-[#5d534a]">
-             Elements -  {elementName}
+            <CardContent className={`text-[#5d534a] ${styles.preformatted}`}>
+              Details -  {elementName}
             </CardContent>
           </Card>
       </section>

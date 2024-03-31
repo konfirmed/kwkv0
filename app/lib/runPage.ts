@@ -1,6 +1,7 @@
 "use server";
 import puppeteer from 'puppeteer';
 
+// This function runs a page with Puppeteer and calculates the CLS score
 export async function runPage(url: string, viewport: { width: number; height: number } | null = null): Promise<{ cls: number, element: string}> {
     try {
         const browser = await puppeteer.launch({
@@ -17,11 +18,14 @@ export async function runPage(url: string, viewport: { width: number; height: nu
         // await page.goto(url, { waitUntil: 'load' });
 
         await page.evaluate(() => {
-          const scrollDistance = document.body.scrollHeight * 0.70;
+          const scrollDistance = document.body.scrollHeight * 0.5;
           window.scrollTo(0, scrollDistance);
         });
 
-        const clsResult: { cls: number, element: string } = await page.evaluate(() => {
+        // page.setDefaultNavigationTimeout(0);
+        page.setDefaultTimeout(0);
+
+        const clsResult: { cls: number, element: string} = await page.evaluate(() => {
           return new Promise<{ cls: number, element: string }>((resolve, reject) => {
             let cls = 0;
             let element = '';
@@ -31,29 +35,27 @@ export async function runPage(url: string, viewport: { width: number; height: nu
                 const performanceEntry = entry as PerformanceEntry & {
                   hadRecentInput: boolean;
                   value: number;
-                  sources: { node: string, currentRect: string, previousRect: string }[];
+                  sources: { node: HTMLElement, currentRect: DOMRectReadOnly, previousRect: DOMRectReadOnly }[];
                 };
 
                 if (!performanceEntry.hadRecentInput) {
                   cls += performanceEntry.value;
                   if (performanceEntry.sources) {
-                    for (const { node, currentRect, previousRect } of performanceEntry.sources) {
-                      console.log("LayoutShift source:", node, {
-                        currentRect,
-                        previousRect,
-                      });
-                      element += `${node} shifted from ${previousRect} to ${currentRect}\n by ${performanceEntry.value}.\n`;
+                    for (const { node } of performanceEntry.sources) {
+                
+                      element += `${node.tagName} ${node.id || 'No ID'} ${node.className} shifted by ${performanceEntry.value}.\n`;
+                      
                     }
                   }
                 }
               }
-              resolve({ cls, element });
+              resolve({ cls, element});
             });
           observer.observe({ type: "layout-shift", buffered: true });
 
             setTimeout(() => {
               observer.disconnect();
-              resolve({ cls, element });
+              resolve({ cls, element});
             }, 5000);
           });
         });
