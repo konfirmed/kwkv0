@@ -1,7 +1,8 @@
 "use server";
 import puppeteer from 'puppeteer';
 
-export async function runPage(url: string, viewport: { width: number; height: number } | null = null): Promise<{ cls: number, element: string}> {
+// This function runs a page with Puppeteer and calculates the CLS score
+export async function runPage(url: string, viewport: { width: number; height: number } | null = null): Promise<{ cls: number, element: string, cause: string, amount: string}> {
     try {
         const browser = await puppeteer.launch({
           headless: true,
@@ -17,43 +18,50 @@ export async function runPage(url: string, viewport: { width: number; height: nu
         // await page.goto(url, { waitUntil: 'load' });
 
         await page.evaluate(() => {
-          const scrollDistance = document.body.scrollHeight * 0.70;
+          const scrollDistance = document.body.scrollHeight * 0.5;
           window.scrollTo(0, scrollDistance);
         });
 
-        const clsResult: { cls: number, element: string } = await page.evaluate(() => {
-          return new Promise<{ cls: number, element: string }>((resolve, reject) => {
+        // page.setDefaultNavigationTimeout(0);
+        page.setDefaultTimeout(0);
+
+        const clsResult: { cls: number, element: string, cause: string, amount: string } = await page.evaluate(() => {
+          return new Promise<{ cls: number, element: string, cause: string, amount: string }>((resolve, reject) => {
             let cls = 0;
             let element = '';
+            let cause = '';
+            let amount = '';
 
             const observer = new PerformanceObserver((list) => {
               for (const entry of list.getEntries()) {
                 const performanceEntry = entry as PerformanceEntry & {
                   hadRecentInput: boolean;
                   value: number;
-                  sources: { node: string, currentRect: string, previousRect: string }[];
+                  sources: { node: HTMLElement, currentRect: DOMRectReadOnly, previousRect: DOMRectReadOnly }[];
                 };
 
                 if (!performanceEntry.hadRecentInput) {
                   cls += performanceEntry.value;
+                  amount += performanceEntry.sources.length;
+                  
                   if (performanceEntry.sources) {
-                    for (const { node, currentRect, previousRect } of performanceEntry.sources) {
-                      console.log("LayoutShift source:", node, {
-                        currentRect,
-                        previousRect,
-                      });
-                      element += `${node} shifted from ${previousRect} to ${currentRect}\n by ${performanceEntry.value}.\n`;
+                    for (const { node } of performanceEntry.sources) {
+                      if (node.tagName === 'IMG' || node.tagName === 'VIDEO') {
+                        element += `A shift was noticed with the following \n Tag ${node.tagName === 'IMG' ? `Image URL: ${node.getAttribute('src')}` : ''} \n`;
+                      } else {
+                        element += `A shift was noticed with the following:\n Tag ${node.tagName}\n ID: ${node.id}\n Class: ${node.className}.\n\n`;
+                      }
                     }
                   }
                 }
               }
-              resolve({ cls, element });
+              resolve({ cls, element, cause, amount });
             });
           observer.observe({ type: "layout-shift", buffered: true });
 
             setTimeout(() => {
               observer.disconnect();
-              resolve({ cls, element });
+              resolve({ cls, element, cause, amount });
             }, 5000);
           });
         });

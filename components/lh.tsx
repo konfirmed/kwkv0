@@ -74,6 +74,8 @@ export function LH() {
   const [strategy, setStrategy] = useState<'mobile' | 'desktop'>('mobile');
   const [data, setData] = useState<PageSpeedInsightsResponse | null>(null);
   const [error, setError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -83,9 +85,10 @@ export function LH() {
       const apiKey = process.env.NEXT_PUBLIC_CRUX_API_KEY; // Use your API key if necessary
       const insightsData = await fetchPageSpeedInsights({ url, strategy, apiKey });
       setData(insightsData);
-      console.log('insightsData', insightsData)
     } catch (error) {
       if (error instanceof Error) setError(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -111,14 +114,14 @@ export function LH() {
   const otherSize = data?.lighthouseResult.audits['resource-summary'].details.items[7].transferSize || '0'
   const thirdPartySize = data?.lighthouseResult.audits['resource-summary'].details.items[8].transferSize || '0'
   const cruxlcp = data?.loadingExperience.metrics?.LARGEST_CONTENTFUL_PAINT_MS?.percentile || '0'
-  const cruxcls = data?.loadingExperience.metrics?.CUMULATIVE_LAYOUT_SHIFT_SCORE?.percentile || '0'
+  const cruxcls = data?.loadingExperience.metrics?.CUMULATIVE_LAYOUT_SHIFT_SCORE?.percentile / 100 || '0'
   const cruxinp = data?.loadingExperience.metrics?.INTERACTION_TO_NEXT_PAINT?.percentile || '0'
 
   const handleURLChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
   };
   return (
-    <main key="1" className="flex flex-col h-screen bg-[#f4f1ea]">
+    <main key="1" className="flex flex-col h-screen">
 
       <section className="flex flex-col flex-1 p-6 space-y-6">
         <div className="flex flex-col lg:flex-row items-center justify-between">
@@ -127,16 +130,18 @@ export function LH() {
             <form onSubmit={handleSubmit} className="flex space-x-4">
               <input
                 value={url} onChange={handleURLChange}
-                className="px-4 py-2 border border-gray-200 border-[#d3c1ae] rounded-md focus:outline-none focus:ring-2 focus:ring-[#a68b7b] dark:border-gray-800"
+                className="px-4 py-2 borderborder-[#d3c1ae] rounded-md focus:outline-none focus:ring-2 focus:ring-[#a68b7b] dark:border-gray-800"
                 placeholder="Enter URL to test"
                 type="url"
               />
               {/* <div className="flex flex-col lg:flex-row items-center space-x-2 mt-4 lg:mt-0"> */}
-                <select value={strategy} onChange={handleChange} title="strategy" className="px-4 py-2 border border-gray-200 border-[#d3c1ae] rounded-md focus:outline-none focus:ring-2 focus:ring-[#a68b7b] dark:border-gray-800">
+                <select value={strategy} onChange={handleChange} title="strategy" className="px-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#a68b7b] dark:border-gray-800">
                   <option value="mobile">Mobile</option>
                   <option value="desktop">Desktop</option>
                 </select>
-                <button type="submit" className="px-4 py-2 text-white bg-[#a68b7b] rounded-md hover:bg-[#8c7364]">Test</button>
+                <button type="submit" className="px-4 py-2 text-white bg-[#a68b7b] rounded-md hover:bg-[#8c7364]">
+                  {isLoading ? 'Loading...' : 'Run Test'}
+                </button>
               {/* </div> */}
             </form>
           </div>
