@@ -2,7 +2,7 @@
 import puppeteer from 'puppeteer';
 
 // This function runs a page with Puppeteer and calculates the CLS score
-export async function runPage(url: string, viewport: { width: number; height: number } | null = null): Promise<{ cls: number, element: string}> {
+export async function runPage(url: string, viewport: { width: number; height: number } | null = null): Promise<{ cls: number, element: string, cause: string, amount: string}> {
     try {
         const browser = await puppeteer.launch({
           headless: true,
@@ -25,10 +25,12 @@ export async function runPage(url: string, viewport: { width: number; height: nu
         // page.setDefaultNavigationTimeout(0);
         page.setDefaultTimeout(0);
 
-        const clsResult: { cls: number, element: string} = await page.evaluate(() => {
-          return new Promise<{ cls: number, element: string }>((resolve, reject) => {
+        const clsResult: { cls: number, element: string, cause: string, amount: string } = await page.evaluate(() => {
+          return new Promise<{ cls: number, element: string, cause: string, amount: string }>((resolve, reject) => {
             let cls = 0;
             let element = '';
+            let cause = '';
+            let amount = '';
 
             const observer = new PerformanceObserver((list) => {
               for (const entry of list.getEntries()) {
@@ -40,22 +42,26 @@ export async function runPage(url: string, viewport: { width: number; height: nu
 
                 if (!performanceEntry.hadRecentInput) {
                   cls += performanceEntry.value;
+                  amount += performanceEntry.sources.length;
+                  
                   if (performanceEntry.sources) {
                     for (const { node } of performanceEntry.sources) {
-                
-                      element += `${node.tagName} ${node.id || 'No ID'} ${node.className} shifted by ${performanceEntry.value}.\n`;
-                      
+                      if (node.tagName === 'IMG' || node.tagName === 'VIDEO') {
+                        element += `A shift was noticed with the following \n Tag ${node.tagName === 'IMG' ? `Image URL: ${node.getAttribute('src')}` : ''} \n`;
+                      } else {
+                        element += `A shift was noticed with the following:\n Tag ${node.tagName}\n ID: ${node.id}\n Class: ${node.className}.\n\n`;
+                      }
                     }
                   }
                 }
               }
-              resolve({ cls, element});
+              resolve({ cls, element, cause, amount });
             });
           observer.observe({ type: "layout-shift", buffered: true });
 
             setTimeout(() => {
               observer.disconnect();
-              resolve({ cls, element});
+              resolve({ cls, element, cause, amount });
             }, 5000);
           });
         });
