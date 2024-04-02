@@ -93,7 +93,7 @@ export default function DashboardDebuggersLcpPage() {
         <Card className="p-4 bg-white shadow-md">
             <CardHeader className="mb-4 text-lg font-semibold">LCP Score</CardHeader>
             <CardContent className="text-[#5d534a]">
-              {elementName || '___'} was the LCP element, loading at {lcpValue || '___'} ({interpretScore(lcpValue || 0 )}). It's size was {count || '___'}kb.
+              {elementName || '___'} was the LCP element, loading at {lcpValue || '___'} ({interpretScore(lcpValue || 0 )}). It is size was {count || '___'}kb.
               <img src={elementName} alt="LCP Element" />
             </CardContent>
         </Card>
