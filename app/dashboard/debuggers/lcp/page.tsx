@@ -88,7 +88,7 @@ export default function DashboardDebuggersLcpPage() {
           </div>
         </div>
         <div className="flex flex-col lg:flex-row items-center justify-between">
-        <h2 className="col-span-full text-xl font-semibold text-[#5d534a]">Laargest Content Paint Debugger</h2>
+        <h2 className="col-span-full text-xl font-semibold text-[#5d534a]">Largest Content Paint Debugger</h2>
         </div>
         <Card className="p-4 bg-white shadow-md">
             <CardHeader className="mb-4 text-lg font-semibold">LCP Score</CardHeader>
