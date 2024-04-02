@@ -50,7 +50,7 @@ export default function DashboardDebuggersLcpPage() {
 
   const lcpValue = debugLCP?.lcp;
   const elementName = debugLCP?.lcpElement;
-  const count = (debugLCP?.size ?? 0) / 1000;
+  const count = debugLCP?.size;
 
   function interpretScore(lcp: number) {
     if (lcp < 2500) {
@@ -93,7 +93,7 @@ export default function DashboardDebuggersLcpPage() {
         <Card className="p-4 bg-white shadow-md">
             <CardHeader className="mb-4 text-lg font-semibold">LCP Score</CardHeader>
             <CardContent className="text-[#5d534a]">
-              {elementName || '___'} was the LCP element, loading at {lcpValue || '___'} ({interpretScore(lcpValue || 0 )}). It is size was {count || '___'}kb.
+              {elementName || '___'} was the LCP element, loading at {lcpValue || '___'} ({interpretScore(lcpValue || 0 )}). It is size was {count || '___'}bytes.
               <img src={elementName} alt="LCP Element" />
             </CardContent>
         </Card>
