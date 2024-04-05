@@ -95,7 +95,7 @@ export default function Form() {
           <div>
             <label className="mb-3 mt-5 block text-xs font-medium text-gray-900">
               Do not have an account?{' '}
-              <Link href="/register" className="text-[#775436]">
+              <Link href="../register" className="text-[#775436]">
                Register here
               </Link>
             </label>
