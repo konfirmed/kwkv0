@@ -2,8 +2,8 @@ import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
 import Nav from '@/components/navout';
 import { getServerSession } from 'next-auth/next';
-import Link from 'next/link';
-import Logout from './logout';
+// import Link from 'next/link';
+// import Logout from './logout';
 export default async function RootLayout({
   children,
 }: {
