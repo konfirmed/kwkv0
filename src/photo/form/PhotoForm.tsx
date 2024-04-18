@@ -355,7 +355,7 @@ export default function PhotoForm({
         <div className="flex gap-3">
           <Link
             className="button"
-            href={type === 'edit' ? PATH_ADMIN_PHOTOS : PATH_ADMIN_UPLOADS}
+            href={type === 'edit' ? PATH_ADMIN_DASHBOARD: PATH_ADMIN_UPLOADS}
           >
             Cancel
           </Link>

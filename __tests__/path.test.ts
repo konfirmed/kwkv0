@@ -29,7 +29,7 @@ const SHARE           = 'share';
 
 const PATH_ROOT                         = '/';
 const PATH_GRID                         = '/grid';
-const PATH_ADMIN                        = '/admin/photos';
+const PATH_ADMIN                        = '/kwk/dashboard';
 
 const PATH_PHOTO                        = `/p/${PHOTO_ID}`;
 const PATH_PHOTO_SHARE                  = `${PATH_PHOTO}/${SHARE}`;

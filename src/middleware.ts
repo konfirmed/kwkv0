@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import {
   PATH_ADMIN,
-  PATH_ADMIN_PHOTOS,
+  PATH_ADMIN_DASHBOARD,
   PREFIX_PHOTO,
   PREFIX_TAG,
 } from './site/paths';
@@ -12,7 +12,7 @@ export default function middleware(req: NextRequest, res:NextResponse) {
   const pathname = req.nextUrl.pathname;
 
   if (pathname === PATH_ADMIN) {
-    return NextResponse.redirect(new URL(PATH_ADMIN_PHOTOS, req.url));
+    return NextResponse.redirect(new URL(PATH_ADMIN_DASHBOARD, req.url));
   } else if (/^\/photos\/(.)+$/.test(pathname)) {
     // Accept /photos/* paths, but serve /p/*
     const matches = pathname.match(/^\/photos\/(.+)$/);

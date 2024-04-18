@@ -7,7 +7,7 @@ import {
   signIn,
   signOut,
 } from '@/auth';
-import { PATH_ADMIN_PHOTOS } from '@/site/paths';
+import { PATH_ADMIN_DASHBOARD} from '@/site/paths';
 import { redirect } from 'next/navigation';
 
 export const signInAction = async (

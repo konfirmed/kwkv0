@@ -1,7 +1,7 @@
 import InfoBlock from '@/components/InfoBlock';
 import SiteGrid from '@/components/SiteGrid';
 import { IS_SITE_READY } from '@/site/config';
-import { PATH_ADMIN_CONFIGURATION, PATH_ADMIN_PHOTOS } from '@/site/paths';
+import { PATH_ADMIN_CONFIGURATION, PATH_ADMIN_DASHBOARD} from '@/site/paths';
 import SiteChecklist from '@/site/SiteChecklist';
 import { clsx } from 'clsx/lite';
 import Link from 'next/link';
@@ -34,7 +34,7 @@ export default function PhotosEmptyState() {
                   Add your first photo:
                 </div>
                 <Link
-                  href={PATH_ADMIN_PHOTOS}
+                  href={PATH_ADMIN_DASHBOARD}
                   className="button primary"
                 >
                   <span>Admin Dashboard</span>

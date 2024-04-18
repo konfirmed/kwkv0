@@ -8,7 +8,7 @@ import {
 import {
   PATH_ADMIN_BASELINE,
   PATH_ADMIN_CONFIGURATION,
-  PATH_ADMIN_PHOTOS,
+  PATH_ADMIN_DASHBOARD,
   PATH_ADMIN_TAGS,
   PATH_ADMIN_UPLOADS,
   PATH_SIGN_IN,
@@ -108,7 +108,7 @@ export default async function CommandK() {
       ? [{
         label: 'Manage Photos',
         annotation: <BiLockAlt />,
-        path: PATH_ADMIN_PHOTOS,
+        path: PATH_ADMIN_DASHBOARD,
       }, {
         label: 'Manage Uploads',
         annotation: <BiLockAlt />,

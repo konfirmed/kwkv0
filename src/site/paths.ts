@@ -25,7 +25,7 @@ const PATH_CAMERA_DYNAMIC           = `${PREFIX_CAMERA}/[make]/[model]`;
 const PATH_FILM_SIMULATION_DYNAMIC  = `${PREFIX_FILM_SIMULATION}/[simulation]`;
 
 // Admin paths
-export const PATH_ADMIN_PHOTOS        = `${PATH_ADMIN}/photos`;
+export const PATH_ADMIN_DASHBOARD       = `${PATH_ADMIN}/dashboard`;
 export const PATH_ADMIN_UPLOADS       = `${PATH_ADMIN}/uploads`;
 export const PATH_ADMIN_TAGS          = `${PATH_ADMIN}/tags`;
 export const PATH_ADMIN_CONFIGURATION = `${PATH_ADMIN}/configuration`;
@@ -43,7 +43,7 @@ const EDIT  = 'edit';
 
 export const PATHS_ADMIN = [
   PATH_ADMIN,
-  PATH_ADMIN_PHOTOS,
+  PATH_ADMIN_DASHBOARD,
   PATH_ADMIN_UPLOADS,
   PATH_ADMIN_TAGS,
   PATH_ADMIN_CONFIGURATION,
@@ -73,13 +73,13 @@ export const pathForGrid = (next?: number) =>
   pathWithNext(PATH_GRID, next);
 
 export const pathForAdminPhotos = (next?: number) =>
-  pathWithNext(PATH_ADMIN_PHOTOS, next);
+  pathWithNext(PATH_ADMIN_DASHBOARD, next);
 
 export const pathForAdminUploadUrl = (url: string) =>
   `${PATH_ADMIN_UPLOADS}/${encodeURIComponent(url)}`;
 
 export const pathForAdminPhotoEdit = (photo: PhotoOrPhotoId) =>
-  `${PATH_ADMIN_PHOTOS}/${getPhotoId(photo)}/${EDIT}`;
+  `${PATH_ADMIN_DASHBOARD}/${getPhotoId(photo)}/${EDIT}`;
 
 export const pathForAdminTagEdit = (tag: string) =>
   `${PATH_ADMIN_TAGS}/${tag}/${EDIT}`;

@@ -5,7 +5,7 @@ import {
 } from '@/photo/cache';
 import { getStorageUploadUrlsNoStore } from '@/services/storage/cache';
 import {
-  PATH_ADMIN_PHOTOS,
+  PATH_ADMIN_DASHBOARD,
   PATH_ADMIN_TAGS,
   PATH_ADMIN_UPLOADS,
 } from '@/site/paths';
@@ -32,7 +32,7 @@ export default async function AdminLayout({
 
   const navItemPhotos = {
     label: 'Photos',
-    href: PATH_ADMIN_PHOTOS,
+    href: PATH_ADMIN_DASHBOARD,
     count: countPhotos,
   };
 

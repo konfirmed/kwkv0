@@ -55,5 +55,8 @@
     "ts-exif-parser": "^0.2.2",
     "typescript": "5.4.3",
     "use-debounce": "^10.0.0"
+  },
+  "devDependencies": {
+    "tailwind-merge": "^2.2.2"
   }
 }

@@ -25,7 +25,7 @@ import {
   revalidateTagsKey,
 } from '@/photo/cache';
 import {
-  PATH_ADMIN_PHOTOS,
+  PATH_ADMIN_DASHBOARD,
   PATH_ADMIN_TAGS,
   PATH_ROOT,
   pathForPhoto,
@@ -49,7 +49,7 @@ export async function createPhotoAction(formData: FormData) {
   
     revalidateAllKeysAndPaths();
   
-    redirect(PATH_ADMIN_PHOTOS);
+    redirect(PATH_ADMIN_DASHBOARD);
   });
 }
 
@@ -61,7 +61,7 @@ export async function updatePhotoAction(formData: FormData) {
 
     revalidateAllKeysAndPaths();
 
-    redirect(PATH_ADMIN_PHOTOS);
+    redirect(PATH_ADMIN_DASHBOARD);
   });
 }
 
@@ -140,7 +140,7 @@ export async function deleteBlobPhotoAction(formData: FormData) {
     revalidateAdminPaths();
 
     if (formData.get('redirectToPhotos') === 'true') {
-      redirect(PATH_ADMIN_PHOTOS);
+      redirect(PATH_ADMIN_DASHBOARD);
     }
   });
 }
