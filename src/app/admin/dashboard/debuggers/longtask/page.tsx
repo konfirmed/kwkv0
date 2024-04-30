@@ -1,6 +1,6 @@
-"use client";
+'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import URLInput from '@/app/ui/dashboard/urlinput';
+import URLInput from '@/app/admin/ui/dashboard/urlinput';
 
 interface LongTaskEntry {
   name: string;

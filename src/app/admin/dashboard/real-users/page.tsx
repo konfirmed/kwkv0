@@ -1,9 +1,10 @@
-"use client";
+/* eslint-disable max-len */
+'use client';
 import React, { useState, useEffect } from 'react';
-import URLInput from '@/app/ui/dashboard/input'; // Assuming this is a custom component
-import MCard from '@/app/ui/dashboard/mcard'; // Assuming this is a custom component
+import URLInput from '@/app/admin/ui/dashboard/input'; // Assuming this is a custom component
+import MCard from '@/app/admin/ui/dashboard/mcard'; // Assuming this is a custom component
 // Assuming lusitana is correctly imported and used
-import { lusitana } from '@/app/ui/fonts';
+import { lusitana } from '@/app/admin/ui/fonts';
 
 interface MetricPercentiles {
   p75: string;
