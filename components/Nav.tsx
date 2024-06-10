@@ -10,8 +10,11 @@ const Nav = () => {
       <h1 className="text-2xl font-semibold text-[#5d534a]"><Link href="/">KWK</Link></h1>
     </div>
     <nav className="flex items-center  space-x-6">
-      <Link className="text-[#5d534a] hover:text-[#3e3427]" href="/debuggers/dcls">
+      <Link className="text-[#5d534a] hover:text-[#3e3427]" href="/dashboard/debuggers/dcls">
         Debuggers
+      </Link>
+      <Link className="text-[#5d534a] hover:text-[#3e3427]" href="/dashboard/debuggers/capo">
+        Head Debugger
       </Link>
       <form
          action={async () => {

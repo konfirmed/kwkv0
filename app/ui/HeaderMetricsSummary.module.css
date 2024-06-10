@@ -1,0 +1,27 @@
+.headerMetricsSummary {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .metricCard {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1;
+    margin-right: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .metricCard:nth-last-child(1) {
+    margin-right: 0; 
+  }
+  .metricCard h2 {
+    margin: 0 0 10px 0;
+  }
+  .metricCard p {
+    font-size: 24px;
+    margin: 0;
+  }
+  .metricCard small {
+    font-size: 14px;
+  }

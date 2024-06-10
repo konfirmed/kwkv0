@@ -1,0 +1,9 @@
+.analysisResults {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    background: #f9f9f9;
+  }
+  .content {
+    margin-top: 10px;
+  }
