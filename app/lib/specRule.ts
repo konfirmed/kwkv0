@@ -1,5 +1,13 @@
+// lib/specRule.ts
 import puppeteer from 'puppeteer';
 
+/**
+ * Applies speculation rules to a given URL using Puppeteer.
+ * 
+ * @param url - The URL to apply the rules to.
+ * @param speculationRules - The speculation rules to apply.
+ * @param viewport - Optional viewport settings for the page.
+ */
 export async function applySpeculationRules(url: string, speculationRules: object, viewport: { width: number; height: number } | null = null): Promise<void> {
   try {
     const browser = await puppeteer.launch({
@@ -7,7 +15,8 @@ export async function applySpeculationRules(url: string, speculationRules: objec
     });
     const page = await browser.newPage();
 
-    if (viewport) {
+    // Set viewport if provided
+    if (viewport && viewport.width > 0 && viewport.height > 0) {
       await page.setViewport(viewport);
     }
 
