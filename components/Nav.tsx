@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { signOut } from '@/auth';
+// import { signOut } from '@/auth';
 
 const Nav = () => {
   return (
@@ -10,10 +10,19 @@ const Nav = () => {
       <h1 className="text-2xl font-semibold text-[#5d534a]"><Link href="/">KWK</Link></h1>
     </div>
     <nav className="flex items-center  space-x-6">
-      <Link className="text-[#5d534a] hover:text-[#3e3427]" href="/debuggers/dcls">
+      <Link className="text-[#5d534a] hover:text-[#3e3427]" href="/dashboard/debuggers/dcls">
         Debuggers
       </Link>
-      <form
+      <Link className="text-[#5d534a] hover:text-[#3e3427]" href="/dashboard/debuggers/event-navigation">
+        Event navigation
+      </Link>
+      <Link className="text-[#5d534a] hover:text-[#3e3427]" href="/dashboard/debuggers/speculation">
+        Speculation
+      </Link>
+      <Link className="text-[#5d534a] hover:text-[#3e3427]" href="/dashboard/debuggers/capo">
+        Head debugger
+      </Link>
+      {/* <form
          action={async () => {
           'use server';
           await signOut();
@@ -22,7 +31,7 @@ const Nav = () => {
           <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
             <div className="hidden md:block">Sign Out</div>
           </button>
-        </form>
+        </form> */}
     </nav>
   </header></div>
   )

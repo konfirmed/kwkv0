@@ -1,0 +1,17 @@
+.recommendations {
+    margin-top: 20px;
+  }
+  
+  .recommendationsList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .recommendationsItem {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 4px;
+  }
+  
