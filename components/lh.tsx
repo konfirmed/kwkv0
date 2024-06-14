@@ -1,14 +1,14 @@
 "use client";
-import { CardHeader, CardContent, Card } from "@/components/ui/card"
-import React, { ChangeEvent, useState } from "react"
+import { CardHeader, CardContent, Card } from "@/components/ui/card";
+import React, { ChangeEvent, useState } from "react";
 
 interface PageSpeedInsightsResponse {
   lighthouseResult: {
     fullPageScreenshot: {
       screenshot: {
         data: string;
-      }
-    }
+      };
+    };
     audits: {
       metrics: {
         details: {
@@ -20,30 +20,30 @@ interface PageSpeedInsightsResponse {
             totalBlockingTime: number | any;
             timeToFirstByte: number | any;
           }>;
-        }
-      }
+        };
+      };
       'resource-summary': {
         details: {
           items: Array<{
             transferSize: number | any;
           }>;
-        }
-      }
-    }
+        };
+      };
+    };
     categories: {
       performance: {
         score: number | any;
       };
-    }
-  }
+    };
+  };
   loadingExperience: {
     metrics: {
       LARGEST_CONTENTFUL_PAINT_MS: number | any;
       CUMULATIVE_LAYOUT_SHIFT_SCORE: number | any;
       INTERACTION_TO_NEXT_PAINT: number | any;
-    }
-  }
-};
+    };
+  };
+}
 
 interface FetchPageSpeedInsightsParams {
   url: string;
@@ -51,34 +51,31 @@ interface FetchPageSpeedInsightsParams {
   apiKey?: string;
 }
 
-  async function fetchPageSpeedInsights({
-    url,
-    strategy,
-    apiKey = '',
-  }: FetchPageSpeedInsightsParams): Promise<PageSpeedInsightsResponse> {
-    const apiEndpoint = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
-      url
-    )}&strategy=${strategy}${apiKey ? `&key=${apiKey}` : ''}`;
-    const response = await fetch(apiEndpoint);
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
+async function fetchPageSpeedInsights({
+  url,
+  strategy,
+  apiKey = '',
+}: FetchPageSpeedInsightsParams): Promise<PageSpeedInsightsResponse> {
+  const apiEndpoint = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
+    url
+  )}&strategy=${strategy}${apiKey ? `&key=${apiKey}` : ''}`;
+  const response = await fetch(apiEndpoint);
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
   }
-
+  return response.json();
+}
 
 export function LH() {
-
-
   const [url, setUrl] = useState<string>('');
   const [strategy, setStrategy] = useState<'mobile' | 'desktop'>('mobile');
   const [data, setData] = useState<PageSpeedInsightsResponse | null>(null);
   const [error, setError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true); // Set loading to true
     setData(null); // Clear previous results
     setError(''); // Clear previous error
     try {
@@ -88,7 +85,7 @@ export function LH() {
     } catch (error) {
       if (error instanceof Error) setError(error.message);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Set loading to false after fetching data
     }
   };
 
@@ -96,30 +93,31 @@ export function LH() {
     setStrategy(event.target.value as "mobile" | "desktop");
   };
 
-  const ps = data?.lighthouseResult.categories.performance.score * 100 || '0'
-  const lcp = data?.lighthouseResult.audits.metrics.details.items[0].largestContentfulPaint / 1000 || '0 s'
-  const cls = data?.lighthouseResult.audits.metrics.details.items[0].cumulativeLayoutShift || '0'
-  const fcp = data?.lighthouseResult.audits.metrics.details.items[0].firstContentfulPaint / 1000 || '0 s'
-  const si = data?.lighthouseResult.audits.metrics.details.items[0].speedIndex / 1000 || '0 s'
-  const tbt = data?.lighthouseResult.audits.metrics.details.items[0].totalBlockingTime / 1000 || '0 s'
-  const ttfb = data?.lighthouseResult.audits.metrics.details.items[0].timeToFirstByte / 1000 || '0 s'
-  const pss = data?.lighthouseResult.fullPageScreenshot.screenshot.data || ''
-  const docSize = data?.lighthouseResult.audits['resource-summary'].details.items[0].transferSize || '0'
-  const totalSize = data?.lighthouseResult.audits['resource-summary'].details.items[1].transferSize || '0'
-  const cssSize = data?.lighthouseResult.audits['resource-summary'].details.items[2].transferSize || '0'
-  const imgSize = data?.lighthouseResult.audits['resource-summary'].details.items[3].transferSize || '0'
-  const mediaSize = data?.lighthouseResult.audits['resource-summary'].details.items[4].transferSize || '0'
-  const fontSize = data?.lighthouseResult.audits['resource-summary'].details.items[6].transferSize || '0'
-  const jsSize = data?.lighthouseResult.audits['resource-summary'].details.items[5].transferSize || '0'
-  const otherSize = data?.lighthouseResult.audits['resource-summary'].details.items[7].transferSize || '0'
-  const thirdPartySize = data?.lighthouseResult.audits['resource-summary'].details.items[8].transferSize || '0'
-  const cruxlcp = data?.loadingExperience.metrics?.LARGEST_CONTENTFUL_PAINT_MS?.percentile || '0'
-  const cruxcls = data?.loadingExperience.metrics?.CUMULATIVE_LAYOUT_SHIFT_SCORE?.percentile / 100 || '0'
-  const cruxinp = data?.loadingExperience.metrics?.INTERACTION_TO_NEXT_PAINT?.percentile || '0'
+  const ps = data?.lighthouseResult.categories.performance.score * 100 || '0';
+  const lcp = data?.lighthouseResult.audits.metrics.details.items[0].largestContentfulPaint / 1000 || '0 s';
+  const cls = data?.lighthouseResult.audits.metrics.details.items[0].cumulativeLayoutShift || '0';
+  const fcp = data?.lighthouseResult.audits.metrics.details.items[0].firstContentfulPaint / 1000 || '0 s';
+  const si = data?.lighthouseResult.audits.metrics.details.items[0].speedIndex / 1000 || '0 s';
+  const tbt = data?.lighthouseResult.audits.metrics.details.items[0].totalBlockingTime / 1000 || '0 s';
+  const ttfb = data?.lighthouseResult.audits.metrics.details.items[0].timeToFirstByte / 1000 || '0 s';
+  const pss = data?.lighthouseResult.fullPageScreenshot.screenshot.data || '';
+  const docSize = data?.lighthouseResult.audits['resource-summary'].details.items[0].transferSize || '0';
+  const totalSize = data?.lighthouseResult.audits['resource-summary'].details.items[1].transferSize || '0';
+  const cssSize = data?.lighthouseResult.audits['resource-summary'].details.items[2].transferSize || '0';
+  const imgSize = data?.lighthouseResult.audits['resource-summary'].details.items[3].transferSize || '0';
+  const mediaSize = data?.lighthouseResult.audits['resource-summary'].details.items[4].transferSize || '0';
+  const fontSize = data?.lighthouseResult.audits['resource-summary'].details.items[6].transferSize || '0';
+  const jsSize = data?.lighthouseResult.audits['resource-summary'].details.items[5].transferSize || '0';
+  const otherSize = data?.lighthouseResult.audits['resource-summary'].details.items[7].transferSize || '0';
+  const thirdPartySize = data?.lighthouseResult.audits['resource-summary'].details.items[8].transferSize || '0';
+  const cruxlcp = data?.loadingExperience.metrics?.LARGEST_CONTENTFUL_PAINT_MS?.percentile || '0';
+  const cruxcls = data?.loadingExperience.metrics?.CUMULATIVE_LAYOUT_SHIFT_SCORE?.percentile / 100 || '0';
+  const cruxinp = data?.loadingExperience.metrics?.INTERACTION_TO_NEXT_PAINT?.percentile || '0';
 
   const handleURLChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
   };
+
   return (
     <main key="1" className="flex flex-col h-screen">
 
@@ -127,22 +125,30 @@ export function LH() {
         <div className="flex flex-col lg:flex-row items-center justify-between">
           <h2 className="text-xl font-semibold text-[#5d534a]">Is Your Website KWK enough?</h2>
           <div className="flex flex-col lg:flex-row items-center space-x-4">
-            <form onSubmit={handleSubmit} className="flex space-x-4">
+          <form onSubmit={handleSubmit} className="flex space-x-4">
               <input
-                value={url} onChange={handleURLChange}
-                className="px-4 py-2 borderborder-[#d3c1ae] rounded-md focus:outline-none focus:ring-2 focus:ring-[#a68b7b] dark:border-gray-800"
+                value={url}
+                onChange={handleURLChange}
+                className="px-4 py-2 border border-[#d3c1ae] rounded-md focus:outline-none focus:ring-2 focus:ring-[#a68b7b] dark:border-gray-800"
                 placeholder="Enter URL to test"
                 type="url"
               />
-              {/* <div className="flex flex-col lg:flex-row items-center space-x-2 mt-4 lg:mt-0"> */}
-                <select value={strategy} onChange={handleChange} title="strategy" className="px-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#a68b7b] dark:border-gray-800">
-                  <option value="mobile">Mobile</option>
-                  <option value="desktop">Desktop</option>
-                </select>
-                <button type="submit" className="px-4 py-2 text-white bg-[#a68b7b] rounded-md hover:bg-[#8c7364]">
-                  {isLoading ? 'Loading...' : 'Run Test'}
-                </button>
-              {/* </div> */}
+              <select
+                value={strategy}
+                onChange={handleChange}
+                title="strategy"
+                className="px-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#a68b7b] dark:border-gray-800"
+              >
+                <option value="mobile">Mobile</option>
+                <option value="desktop">Desktop</option>
+              </select>
+              <button
+                type="submit"
+                className="px-4 py-2 text-white bg-[#a68b7b] rounded-md hover:bg-[#8c7364]"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Loading...' : 'Run Test'}
+              </button>
             </form>
           </div>
         </div>
@@ -162,11 +168,6 @@ export function LH() {
             />
           </div>
         </div>
-        {/* <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <TimeseriesChart className="w-full aspect-[4/3]" />
-          <StackedbarChart className="w-full aspect-[4/3]" />
-          <TimeseriesChart className="w-full aspect-[4/3]" />
-        </div> */}
         <div className="flex items-center justify-between">
         <h2 className="col-span-full text-xl font-semibold text-[#5d534a]">CrUX Real User Metrics</h2>
         </div>

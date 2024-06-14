@@ -7,7 +7,10 @@ import 'app/ui/capo/capo.css';
 
 const Capo: React.FC = () => {
   const [url, setUrl] = useState('');
-  const { originalElements, sortedElements, loading, error } = useHeaderElements(url);
+  const [analyze, setAnalyze] = useState(false);
+
+  // Pass empty string when not analyzing to avoid type issues
+  const { originalElements, sortedElements, loading, error } = useHeaderElements(analyze ? url : '');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(event.target.value);
@@ -15,7 +18,7 @@ const Capo: React.FC = () => {
 
   const handleAnalyzeClick = () => {
     if (url) {
-      setUrl(url);
+      setAnalyze(true);
     }
   };
 
@@ -42,7 +45,7 @@ const Capo: React.FC = () => {
           <div className="results-section">
             {loading && <p>Loading...</p>}
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            {!loading && !error && (
+            {!loading && !error && analyze && (
               <AnalysisResults headerElements={originalElements} />
             )}
           </div>
