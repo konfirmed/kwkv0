@@ -1,0 +1,36 @@
+/* Capo.css */
+.capo-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  .input-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .input {
+    width: calc(100% - 110px);
+    padding: 10px;
+    margin-right: 10px;
+  }
+  .button {
+    padding: 10px;
+    width: 100px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  .results-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  .results-section {
+    width: 48%;
+  }
+  .recommendations-section {
+    width: 48%;
+  }
