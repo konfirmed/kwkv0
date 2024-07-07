@@ -1,5 +1,14 @@
-## Next.js App Router Course - Starter
+# KWK
 
-This is the starter template for the Next.js App Router Course. It contains the starting code for the dashboard application.
+This was meant to be a closed repo, opening it up to folks who are interested in building a Web Performance tool that helps debug and recommend solutions to Web Performance issues
 
-For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
+## Content
+- CrUX metrics
+- Lighthouse metrics
+- Head Tag debugger (WIP)
+- Event Timing API (works on your device, and not the vercel link atm)
+- Layout Shift Debugger
+
+## Coming Soon
+- a debugger/recommender on how to improve LCP
+- fix for the Event Timing API piece
